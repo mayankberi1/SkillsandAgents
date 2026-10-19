@@ -1,7 +1,7 @@
 ---
 description: "Coordinates approved lifecycle stages and sequential specialist work."
 mode: primary
-permission: {"*":"ask","read":{"*":"allow","*.env":"ask","*.env.*":"ask","*.pem":"ask","*.key":"ask","*credentials*":"ask","*secrets*":"ask"},"glob":"allow","grep":"ask","skill":"allow","question":"allow","edit":{"*":"deny","docs/*.md":"ask","docs/iterations/*.md":"ask"},"bash":"deny","task":{"*":"deny","product-owner":"allow","architect":"allow","solution-designer":"allow","ui-designer":"allow","developer":"allow","tester":"allow","code-reviewer":"allow","security-reviewer":"allow"},"external_directory":"ask","webfetch":"ask","websearch":"ask"}
+permission: {"*":"ask","read":{"*":"allow","*.env":"ask","*.env.*":"ask","*.pem":"ask","*.key":"ask","*credentials*":"ask","*secrets*":"ask"},"glob":"allow","grep":"ask","skill":"allow","question":"allow","edit":{"*":"ask","docs/*.md":"ask","docs/iterations/*.md":"ask"},"bash":"ask","task":{"*":"ask","product-owner":"allow","architect":"allow","solution-designer":"allow","ui-designer":"allow","developer":"allow","tester":"allow","code-reviewer":"allow","security-reviewer":"allow"},"external_directory":"ask","webfetch":"ask","websearch":"ask"}
 ---
 
 # coordinator
