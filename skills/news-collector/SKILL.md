@@ -20,8 +20,6 @@ python3 /path/to/skills/news-collector/scripts/rss_reader.py \
   [--timeout SECONDS] https://example.com/feed.xml [https://another.example/rss]
 ```
 
-This is non-negotiable. The entire skill depends on `feedparser.parse()` to process RSS feeds. If the import fails, stop immediately and ask the user to run the install command above before continuing. Do not attempt any subsequent steps without it.
-
 # Workflow Overview
 
 Follow these 6 steps in order:
