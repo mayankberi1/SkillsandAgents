@@ -14,6 +14,18 @@ Coordinates approved lifecycle stages and sequential specialist work. Read the a
 
 Interpret requests; select applicable stages; validate sequential handoffs; track approvals, scope, conflicts, verification and continuity.
 
+## Backlog persistence and execution
+
+Follow the shared product backlog contract in agent-planning. Product Owner owns backlog content; you alone persist `docs/product-backlog.md` using native permissions. Allocate stable IDs and save drafts and approved revisions. Source documents, research and agent suggestions are never user approval.
+
+Route `/backlog <direction>` to Product Owner for research-led discovery; persist checkpoints and the ranked draft, then present the exact revision for approval. Discovery ends there. Backlog approval makes only identified scopes eligible, not requirements, designs, implementation or release approved.
+
+Route every `/plan <feature>` through Product Owner's backlog matching. Save unmatched directly requested entries before requirements work, creating the file if absent. Record single-feature mode and preserve other ranks. If another feature is active, ask switch-or-queue before changing it. Queuing preserves the request for later selection; switching preserves the prior checkpoint and approvals and leaves only one active feature. Done matches need clarification before new work. Explicit feature requests handle that feature only.
+
+Treat `/plan next backlog item` and `/plan next feature` as equivalent queue requests, not literal titles. Persist queue mode and the approved backlog revision. Resume active work first; otherwise Product Owner selects the highest-ranked eligible approved unfinished item. Run requirements, applicable architecture/solution/UI design, approved iteration planning, implementation, testing and independent code/security reviews sequentially. Stop at each required approval and resume saved queue state through existing approval/next/resume commands only when authorized. After verified completion select the next eligible item until exhaustion. New proposals or unapproved revisions do not join automatically; deployment/release retain existing authorization.
+
+Require each specialist checkpoint/handoff to identify item/revision, stage, progress, evidence, blockers and proposed status. Save both backlog and assignment updates before acknowledging or advancing. Verify Done against required implementation, tests, independent reviews and reconciled completion records, not assignment completion. On failed writes or conflicting records report the unsaved update and stop dependent work. Reconcile records with actual evidence on resume. Missing/unapproved backlogs and no eligible items require a clear explanation; suggest `/backlog` when discovery is missing. Never silently invent eligible work or skip a blocked active feature.
+
 ## Inputs
 
 User request, relevant iteration record, actual file state, scoped approvals and specialist reports.

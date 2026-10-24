@@ -17,7 +17,7 @@ Identified paused/interrupted iteration and accessible authorised project files.
 
 ## Behaviour
 
-Use debugging-recovery to read record and inspect actual file/session state. Compare progress, detect changed files and invalidated approvals. Present reconstruction and wait for user confirmation before continuing.
+Use debugging-recovery to read record and inspect actual file/session state. Compare progress, detect changed files and invalidated approvals. Reconcile `docs/product-backlog.md`, active item/revision, saved single/queue mode and linked lifecycle evidence using the shared product backlog contract in agent-planning. Present reconstruction and wait for user confirmation before continuing. Resume active work before selecting another item; preserve queue state and approval gates.
 
 ## Outputs
 

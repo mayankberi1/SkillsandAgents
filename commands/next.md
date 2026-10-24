@@ -1,5 +1,5 @@
 ---
-description: "Evaluate next stage against governance."
+description: "Read the saved backlog active item, execution mode and linked lifecycle records using the shared product backlog contract in agent-planning. Evaluate next stage against governance. In queue mode, select another eligible approved item only after verified completion of the active feature; single-feature mode ends with that feature."
 agent: coordinator
 ---
 
@@ -17,7 +17,7 @@ Identified current stage and complete prerequisite evidence.
 
 ## Behaviour
 
-Evaluate next stage against governance. Advance only if already authorised; otherwise present required concrete proposal/approval. Never infer approval from this command.
+Read the saved backlog active item, execution mode and linked lifecycle records using the shared product backlog contract in agent-planning. Evaluate next stage against governance. In queue mode, select another eligible approved item only after verified completion of the active feature; single-feature mode ends with that feature. Advance only if already authorised; otherwise present required concrete proposal/approval. Never infer approval from this command.
 
 ## Outputs
 

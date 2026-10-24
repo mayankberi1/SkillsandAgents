@@ -71,6 +71,16 @@ Platform-specific installer scripts for deploying skills to various agent runtim
 - `install-cursor.sh` — Installs to Cursor paths
 - `install-openwebui.sh` — Guides for Open WebUI / LibreChat setup
 
+## Backlog-driven development
+
+Configure the definitions in `agents/` and `commands/` in your harness to use this workflow. Existing skill installers do not automatically register these definitions.
+
+- `/backlog <direction>`: Product Owner inspects the project, researches sources and brainstorms a ranked backlog with you. Drafts are saved before approval.
+- `/plan <feature or backlog ID>`: reuse an existing item or save a new requested feature before requirements work. Ambiguous/completed matches and switching active work require clarification.
+- `/plan next backlog item` or `/plan next feature`: process the approved queue sequentially through development and verification, stopping for existing approvals.
+
+The target project's `docs/product-backlog.md` stores feature IDs, rank, scope, evidence, approvals, status, stage and lifecycle links. Product Owner owns content; specialists report progress; Coordinator persists checkpoints. Backlog approval does not replace lifecycle approvals. Explicit feature requests handle only that feature; saved queue state resumes through existing approval, next and resume commands.
+
 ## Installation
 
 ### Quick Install (Universal)

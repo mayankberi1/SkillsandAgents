@@ -17,7 +17,7 @@ Relevant records and actual repository state.
 
 ## Behaviour
 
-Read records and compare actual files with the approved baseline. Report stage, approval targets/revisions, verification gaps, blockers and next authorised action; no automatic advancement.
+Read records and compare actual files with the approved baseline. Report backlog item ID/revision, status, stage, saved single/queue mode, approval targets/revisions, verification gaps, blockers and next authorised action; no automatic advancement. Compare the saved backlog with linked lifecycle evidence and disclose conflicts.
 
 ## Outputs
 

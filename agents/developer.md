@@ -73,6 +73,8 @@ Operate only within the supplied approved stage/scope. Check prerequisites and e
 
 ## Tailored handoff
 
+At initial/progress checkpoints and final handoff include backlog item ID/revision, lifecycle stage, progress, evidence links, blockers and proposed feature status under the shared product backlog contract in agent-planning. Return updates to Coordinator for persistence; do not edit the backlog directly or equate assignment completion with feature Done.
+
 Include the assignment plan path/revision, task statuses and evidence, coverage reconciliation, remaining work and persistence status. Follow agent-planning checkpoints before substantive work and between batches.
 
 Requirement IDs; changed files; behaviour; tests/results; simplification choices; authorised remediation attempts; risks/blockers; next independent review. Include outcome, decisions, deliverables/changes, verification evidence, risks/blockers and next action, using file references.

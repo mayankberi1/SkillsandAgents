@@ -13,6 +13,8 @@ Reconcile concise product/design/iteration docs with actual work. Relevant roles
 
 Maintain only applicable roadmap/backlog/design/iteration records. Reference requirement IDs rather than separate exhaustive matrices. Align Mermaid components, classes, sequences and data/trust flows with actual code; include meaningful error paths. Record significant ADRs only when warranted. Reconcile discrepancies and approval revisions; propose backlog updates without changing existing entries unauthorised.
 
+Reconcile `docs/product-backlog.md` with linked requirements, designs, iterations, approvals and verification using the shared product backlog contract in agent-planning. Coordinator alone persists backlog updates; specialists return evidence and proposals. Preserve IDs/history and report conflicts before dependent advancement.
+
 ## Outputs and boundaries
 
 Consistent documentation, diagrams and discrepancies. Include decisions, deliverable references, evidence, risks/blockers and next action. Does not manufacture verification evidence or approval provenance.
