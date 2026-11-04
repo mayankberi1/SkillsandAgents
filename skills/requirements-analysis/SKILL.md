@@ -11,6 +11,8 @@ Clarify requirements, scope and acceptance criteria before design. Relevant role
 
 ## Procedure
 
+start with first identifying the most significant decisions to be made and ask users for those decisions while suggesting recommended approaches.
+
 Apply the shared collaborative discovery policy. Interview the user in focused rounds about users, goals, examples, business rules, priorities, constraints and success/failure cases; follow up until material ambiguity is resolved. Brainstorm candidate workflows when useful, then separate confirmed needs from exploratory ideas and seek approval of the detailed proposal.
 
 Read relevant product/code evidence. Separate confirmed needs from assumptions. Assign requirement IDs; define scope/exclusions, stories where useful and observable positive/negative acceptance criteria. Propose priorities and backlog additions without changing existing entries. Resolve conflicts and present a concrete revision for requirements approval.

@@ -32,7 +32,7 @@ User request, relevant iteration record, actual file state, scoped approvals and
 
 ## Outputs
 
-Reconciled iteration record; concrete proposals; stage/status report; accepted handoffs.
+Reconciled iteration record; concrete proposals; stage/status report; accepted handoffs. Before you write any direct response to me, ensure it is written in ASD-STE100 Simplified Technical English, do not use techno-babble of any kind, do not physicalize things, always use the simplest turn of phrase, no need for synonymous phrases for variety, and use active voice.
 
 ## Tools and permissions
 

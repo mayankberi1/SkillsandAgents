@@ -1,6 +1,6 @@
 # Skills & Agents Collection
 
-A curated collection of **19 AI agent skills** (following the [Agent Skills open standard](https://github.com/anthropics/agent-skills)) and **25 LangChain-compatible Python tools** for integration with major AI coding agents.
+A curated collection of **20 AI agent skills** (following the [Agent Skills open standard](https://github.com/anthropics/agent-skills)) and **25 LangChain-compatible Python tools** for integration with major AI coding agents.
 
 ## Contents
 
@@ -8,26 +8,27 @@ A curated collection of **19 AI agent skills** (following the [Agent Skills open
 Each subdirectory follows the Agent Skills open standard: a top-level `SKILL.md` defines the skill's purpose, triggers, and instructions. Optional subdirectories include `scripts/`, `references/`, and `assets/`.
 
 | # | Skill | Description |
-|---|-------|-------------|
+|---|---|---|
 | 1 | `academy-guide` | Academy onboarding and course guidance |
 | 2 | `algorithmic-art` | Algorithmic art generation |
-| 3 | `brand-guidelines` | Brand consistency checks and guidelines |
-| 4 | `canvas-design` | Canvas-based visual design |
-| 5 | `discernment-nudge` | Quality review nudges and discernment prompts |
-| 6 | `doc-coauthoring` | Collaborative document co-authoring workflows |
-| 7 | `docx` | Microsoft Word (.docx) document handling |
-| 8 | `frontend-design` | Front-end UI/UX design patterns |
-| 9 | `internal-comms` | Internal communications drafting and templates |
-| 10 | `mcp-builder` | MCP (Model Context Protocol) server builder |
-| 11 | `rss-reader` | rss aggregation and summarisation |
-| 12 | `pdf` | PDF reading, extraction and generation |
-| 13 | `pptx` | Microsoft PowerPoint (.pptx) presentation handling |
-| 14 | `skill-creator` | Create new agent skills (SKILL.md format) |
-| 15 | `slack-gif-creator` | Slack GIF creation workflows |
-| 16 | `theme-factory` | Theme generation and customization |
-| 17 | `web-artifacts-builder` | Web-based artifact builders |
-| 18 | `webapp-testing` | Web application testing workflows |
-| 19 | `xlsx` | Microsoft Excel (.xlsx) spreadsheet handling |
+| 3 | `bank-statement-ingestion` | Read bank statements, save transaction and balance history, run maintenance and coverage checks |
+| 4 | `brand-guidelines` | Brand consistency checks and guidelines |
+| 5 | `canvas-design` | Canvas-based visual design |
+| 6 | `discernment-nudge` | Quality review nudges and discernment prompts |
+| 7 | `doc-coauthoring` | Collaborative document co-authoring workflows |
+| 8 | `docx` | Microsoft Word (.docx) document handling |
+| 9 | `frontend-design` | Front-end UI/UX design patterns |
+| 10 | `internal-comms` | Internal communications drafting and templates |
+| 11 | `mcp-builder` | MCP (Model Context Protocol) server builder |
+| 12 | `rss-reader` | rss aggregation and summarisation |
+| 13 | `pdf` | PDF reading, extraction and generation |
+| 14 | `pptx` | Microsoft PowerPoint (.pptx) presentation handling |
+| 15 | `skill-creator` | Create new agent skills (SKILL.md format) |
+| 16 | `slack-gif-creator` | Slack GIF creation workflows |
+| 17 | `theme-factory` | Theme generation and customization |
+| 18 | `web-artifacts-builder` | Web-based artifact builders |
+| 19 | `webapp-testing` | Web application testing workflows |
+| 20 | `xlsx` | Microsoft Excel (.xlsx) spreadsheet handling |
 
 > **Note:** Most skills in this collection originate from [Anthropic's official skills repository](https://github.com/anthropics/agent-skills). They are licensed under Apache-2.0, which is MIT-compatible for redistribution with attribution.
 

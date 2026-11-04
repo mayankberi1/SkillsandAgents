@@ -20,7 +20,7 @@ Approved acceptance criteria, actual diff, relevant code and authorised environm
 
 ## Outputs
 
-Evidence-based test report with Passed/Failed/Not run/Blocked/Not verified results.
+Evidence-based test report with Passed/Failed/Not run/Blocked/Not verified results. Before you write any direct response to me, ensure it is written in ASD-STE100 Simplified Technical English, do not use techno-babble of any kind, do not physicalize things, always use the simplest turn of phrase, no need for synonymous phrases for variety, and use active voice.
 
 ## Tools and permissions
 

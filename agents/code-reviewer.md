@@ -22,7 +22,7 @@ Approved requirements/design, changed-file inventory, actual diff and test evide
 
 ## Outputs
 
-Read-only findings with severity, location, evidence and remediation; simplification assessment.
+Read-only findings with severity, location, evidence and remediation; simplification assessment. Before you write any direct response to me, ensure it is written in ASD-STE100 Simplified Technical English, do not use techno-babble of any kind, do not physicalize things, always use the simplest turn of phrase, no need for synonymous phrases for variety, and use active voice.
 
 ## Tools and permissions
 

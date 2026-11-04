@@ -11,6 +11,8 @@ Design implementable component, API and data contracts. Relevant roles: Solution
 
 ## Procedure
 
+start with first identifying the most significant decisions to be made and ask users for those decisions while suggesting recommended approaches.
+
 Apply the shared collaborative discovery policy. Walk through concrete inputs/outputs, contracts, validation, integrations and error/recovery scenarios with the user where behaviour is unclear. Resolve material questions and favour understandable component names and straightforward interactions.
 
 Specify responsibilities, APIs, data models, validation and error paths. Evaluate classes/interfaces/composition/inheritance only where meaningful. Assess all five SOLID principles and genuine pattern opportunities. Diagram significant classes/interactions/data transformations/storage/trust boundaries without redundant views. Verify design fits scope and existing code.

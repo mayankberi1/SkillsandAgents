@@ -23,6 +23,8 @@ Approved requirements/architecture and applicable UI constraints.
 ## Outputs
 
 Detailed solution proposal and aligned significant component/sequence/data-flow diagrams.
+Use diagrams and tables and bullet points as much as possible and keep the design document less verbose.
+Before you write any direct response to me, ensure it is written in ASD-STE100 Simplified Technical English, do not use techno-babble of any kind, do not physicalize things, always use the simplest turn of phrase, no need for synonymous phrases for variety, and use active voice.
 
 ## Tools and permissions
 

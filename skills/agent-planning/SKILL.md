@@ -25,6 +25,9 @@ Build tasks from the complete assigned scope rather than only files already read
 
 ## Execution and checkpoints
 
+start with first identifying the most significant decisions to be made and ask users for those decisions while suggesting recommended approaches.
+
+
 Choose small coherent batches. Independent reads within a batch may run in parallel where supported; dependent actions remain sequential. Inspect every tool result and update the corresponding rows with actual file/location, comparison or test evidence. Never mark a task Done just because a read was scheduled.
 
 Return updated rows after each batch, on a blocker, before a context/session transition, and at final handoff. Coordinator saves and acknowledges each checkpoint before the next batch is delegated. Include the plan path, assignment revision, completed and remaining task IDs, unsaved changes and next action. Preserve previous failures and re-verification attempts rather than replacing them with later success. Avoid secrets in records.
