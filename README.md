@@ -1,6 +1,6 @@
 # Skills & Agents Collection
 
-A curated collection of **20 AI agent skills** (following the [Agent Skills open standard](https://github.com/anthropics/agent-skills)) and **25 LangChain-compatible Python tools** for integration with major AI coding agents.
+A curated collection of **21 AI agent skills** (following the [Agent Skills open standard](https://github.com/anthropics/agent-skills)) and **25 LangChain-compatible Python tools** for integration with major AI coding agents.
 
 ## Contents
 
@@ -12,23 +12,24 @@ Each subdirectory follows the Agent Skills open standard: a top-level `SKILL.md`
 | 1 | `academy-guide` | Academy onboarding and course guidance |
 | 2 | `algorithmic-art` | Algorithmic art generation |
 | 3 | `bank-statement-ingestion` | Read bank statements, save transaction and balance history, run maintenance and coverage checks |
-| 4 | `brand-guidelines` | Brand consistency checks and guidelines |
-| 5 | `canvas-design` | Canvas-based visual design |
-| 6 | `discernment-nudge` | Quality review nudges and discernment prompts |
-| 7 | `doc-coauthoring` | Collaborative document co-authoring workflows |
-| 8 | `docx` | Microsoft Word (.docx) document handling |
-| 9 | `frontend-design` | Front-end UI/UX design patterns |
-| 10 | `internal-comms` | Internal communications drafting and templates |
-| 11 | `mcp-builder` | MCP (Model Context Protocol) server builder |
-| 12 | `rss-reader` | rss aggregation and summarisation |
-| 13 | `pdf` | PDF reading, extraction and generation |
-| 14 | `pptx` | Microsoft PowerPoint (.pptx) presentation handling |
-| 15 | `skill-creator` | Create new agent skills (SKILL.md format) |
-| 16 | `slack-gif-creator` | Slack GIF creation workflows |
-| 17 | `theme-factory` | Theme generation and customization |
-| 18 | `web-artifacts-builder` | Web-based artifact builders |
-| 19 | `webapp-testing` | Web application testing workflows |
-| 20 | `xlsx` | Microsoft Excel (.xlsx) spreadsheet handling |
+| 4 | `bank-transaction-tagging` | Tag saved transactions with vendor names, categories and user rules |
+| 5 | `brand-guidelines` | Brand consistency checks and guidelines |
+| 6 | `canvas-design` | Canvas-based visual design |
+| 7 | `discernment-nudge` | Quality review nudges and discernment prompts |
+| 8 | `doc-coauthoring` | Collaborative document co-authoring workflows |
+| 9 | `docx` | Microsoft Word (.docx) document handling |
+| 10 | `frontend-design` | Front-end UI/UX design patterns |
+| 11 | `internal-comms` | Internal communications drafting and templates |
+| 12 | `mcp-builder` | MCP (Model Context Protocol) server builder |
+| 13 | `rss-reader` | rss aggregation and summarisation |
+| 14 | `pdf` | PDF reading, extraction and generation |
+| 15 | `pptx` | Microsoft PowerPoint (.pptx) presentation handling |
+| 16 | `skill-creator` | Create new agent skills (SKILL.md format) |
+| 17 | `slack-gif-creator` | Slack GIF creation workflows |
+| 18 | `theme-factory` | Theme generation and customization |
+| 19 | `web-artifacts-builder` | Web-based artifact builders |
+| 20 | `webapp-testing` | Web application testing workflows |
+| 21 | `xlsx` | Microsoft Excel (.xlsx) spreadsheet handling |
 
 > **Note:** Most skills in this collection originate from [Anthropic's official skills repository](https://github.com/anthropics/agent-skills). They are licensed under Apache-2.0, which is MIT-compatible for redistribution with attribution.
 
@@ -74,13 +75,17 @@ Platform-specific installer scripts for deploying skills to various agent runtim
 
 ## Backlog-driven development
 
-Configure the definitions in `agents/` and `commands/` in your harness to use this workflow. Existing skill installers do not automatically register these definitions.
+Use the skills and command prompts for the coding workflow. The main chat runs each stage and shows its result, evidence, open issues and next step. It stops at each approval gate. The command prompts do not assign work to specialist agents. Existing skill installers do not automatically register command prompts; add them to your harness as commands for the main agent.
 
-- `/backlog <direction>`: Product Owner inspects the project, researches sources and brainstorms a ranked backlog with you. Drafts are saved before approval.
-- `/plan <feature or backlog ID>`: reuse an existing item or save a new requested feature before requirements work. Ambiguous/completed matches and switching active work require clarification.
+- `/backlog <direction>`: load `software-development-workflow` and `software-development-requirements` to inspect project evidence, research sources and prepare a ranked backlog. Show the draft and exact revision for approval before requirements work.
+- `/plan <feature or backlog ID>`: load `software-development-workflow` and `software-development-requirements` to match or save the requested feature, then prepare requirements, applicable designs and an iteration plan in visible stages. Wait for approval at each gate.
 - `/plan next backlog item` or `/plan next feature`: process the approved queue sequentially through development and verification, stopping for existing approvals.
+- `/implement <iteration ID>`: load `software-development-coding` after the user approves the iteration.
+- `/review <iteration ID>`: load `software-development-testing`, `software-development-code-review`, `software-development-code-simplification` and `software-development-security` in the main chat. These checks are not independent reviews.
 
-The target project's `docs/product-backlog.md` stores feature IDs, rank, scope, evidence, approvals, status, stage and lifecycle links. Product Owner owns content; specialists report progress; Coordinator persists checkpoints. Backlog approval does not replace lifecycle approvals. Explicit feature requests handle only that feature; saved queue state resumes through existing approval, next and resume commands.
+The target project's `docs/product-backlog.md` stores feature IDs, rank, scope, evidence, approvals, status, stage and lifecycle links. The main chat maintains the record when its tool access permits. Backlog approval does not replace later approvals. A direct feature request handles only that feature; saved queue state resumes through the approval, next and resume commands. Test, code and security checks run in the main chat. They are not independent reviews.
+
+The shared rules live in `skills/software-development-workflow/SKILL.md`. Each command names the task skills to load. Task skills describe how to do their work; command prompts set the task and order. Tool permissions remain in the harness and are not enforced by skills.
 
 ## Installation
 

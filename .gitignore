@@ -219,4 +219,6 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 /docs/
-/tests/
+/tests/*
+!/tests/
+!/tests/bank_statement_ingestion/
