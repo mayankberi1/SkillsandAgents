@@ -74,7 +74,7 @@ not transactions. Do not add loan interest to loan payments a second time.
 
 ## Reports and calculations
 
-- After imports, provide a short health check: totals and patterns, major credits
+- After imports, and when user explictly asks about financial health and status, provide a short health check: totals and patterns, major credits
   and debits, possible duplicates, recurring payments and estimated next dates,
   spending by vendor/type descending, regular interest/fees, a chart of income,
   expense and cumulative net, and 30/60/90-day projections. For follow-up questions,
