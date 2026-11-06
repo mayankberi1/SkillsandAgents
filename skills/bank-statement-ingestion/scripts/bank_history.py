@@ -127,7 +127,7 @@ def _convert_amount(value: str, decimal_separator: str, group_separator: str, *,
         negative = value.startswith(("-", "−", "("))
         if value.startswith("(") and value.endswith(")"):
             value = "-" + value[1:-1]
-        value = value.replace("−", "-").lstrip("$")
+        value = re.sub(r"^([+-]?)\$", r"\1", value.replace("−", "-"))
         if decimal_separator is None or group_separator is None or (
             decimal_separator and decimal_separator == group_separator
         ):

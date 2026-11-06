@@ -116,7 +116,7 @@ class StatementUploadTests(unittest.TestCase):
             bank._convert_amount("-25.00 CR", ".", "")
 
     def test_leading_and_trailing_minus_preserve_original_text(self) -> None:
-        for raw in ("-300.00", "300.00-", "300.00−", " 300.00- ", "1,000.00-", "300.00- CR"):
+        for raw in ("-300.00", "-$300.00", "$300.00-", "300.00-", "300.00−", " 300.00- ", "1,000.00-", "300.00- CR"):
             with self.subTest(raw=raw):
                 amount = bank._convert_amount(raw, ".", ",", account_type="credit")
                 self.assertEqual(bank.minor_units(amount, 2), -100000 if "1,000" in raw else -30000)
