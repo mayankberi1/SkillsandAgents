@@ -5,7 +5,7 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
-SCRIPTS = Path(__file__).parents[2] / 'skills' / 'bank-statement-ingestion' / 'scripts'
+SCRIPTS = Path(__file__).parents[2] / 'skills' / 'financial-history' / 'scripts'
 sys.path.insert(0, str(SCRIPTS))
 import cba_smart_access as reader
 

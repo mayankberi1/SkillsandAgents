@@ -11,7 +11,7 @@ Each subdirectory follows the Agent Skills open standard: a top-level `SKILL.md`
 |---|---|---|
 | 1 | `academy-guide` | Academy onboarding and course guidance |
 | 2 | `algorithmic-art` | Algorithmic art generation |
-| 3 | `bank-statement-ingestion` | Read bank statements, save transaction and balance history, run maintenance and coverage checks |
+| 3 | `financial-history` | Import and reconcile statements; query saved financial history for spending, income, balances, recurring payments, and forecasts |
 | 4 | `bank-transaction-tagging` | Tag saved transactions with vendor names, categories and user rules |
 | 5 | `brand-guidelines` | Brand consistency checks and guidelines |
 | 6 | `canvas-design` | Canvas-based visual design |

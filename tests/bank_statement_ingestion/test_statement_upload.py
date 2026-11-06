@@ -7,7 +7,7 @@ import unittest
 from dataclasses import replace
 from pathlib import Path
 
-SCRIPTS = Path(__file__).parents[2] / "skills" / "bank-statement-ingestion" / "scripts"
+SCRIPTS = Path(__file__).parents[2] / "skills" / "financial-history" / "scripts"
 sys.path.insert(0, str(SCRIPTS))
 import bank_history as bank
 
