@@ -115,6 +115,21 @@ class StatementUploadTests(unittest.TestCase):
         with self.assertRaises(bank.HistoryError):
             bank._convert_amount("-25.00 CR", ".", "")
 
+    def test_leading_and_trailing_minus_preserve_original_text(self) -> None:
+        for raw in ("-300.00", "300.00-", "300.00−", " 300.00- ", "1,000.00-", "300.00- CR"):
+            with self.subTest(raw=raw):
+                amount = bank._convert_amount(raw, ".", ",", account_type="credit")
+                self.assertEqual(bank.minor_units(amount, 2), -100000 if "1,000" in raw else -30000)
+        for raw in ("-300.00-", "+300.00-", "(300.00)-", "300.00- DR"):
+            with self.subTest(raw=raw), self.assertRaises(bank.HistoryError):
+                bank._convert_amount(raw, ".", "", account_type="credit")
+        record = replace(self.record(), raw_amount="1,234.50-",
+                         amount_decimal_separator=".", amount_group_separator=",")
+        bank.save_statement(self.history, self.source, (self.statement(record),))
+        with sqlite3.connect(self.history / "history.sqlite3") as connection:
+            self.assertEqual(connection.execute("SELECT amount_text,amount_minor FROM statement_records").fetchone(),
+                             ("1,234.50-", -123450))
+
     def test_balance_mismatch_rolls_back_file_and_records(self) -> None:
         opening = bank.Record(
             evidence=bank.Evidence("Opening balance", "opening", "record"), kind="balance",

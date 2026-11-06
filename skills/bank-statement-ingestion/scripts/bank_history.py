@@ -113,6 +113,10 @@ def _convert_amount(value: str, decimal_separator: str, group_separator: str, *,
         direction = suffix[1].upper() if suffix else None
         if suffix:
             value = value[:suffix.start()].strip()
+        if value.endswith(("-", "−")):
+            if value.startswith(("+", "-", "−", "(")):
+                raise HistoryError("The amount contains conflicting signs.")
+            value = "-" + value[:-1].strip()
         if sign_evidence:
             directions = {"DR" if word.lower() in {"debit", "debits", "dr"} else "CR"
                           for word in re.findall(r"\b(debits?|credits?|DR|CR)\b", sign_evidence.quote, re.I)}
