@@ -1,0 +1,13 @@
+# BL-009 step 2 — Developer bounded-read checklist
+
+Assignment DEV-TAG-IT2-READ-FIX r1. BL-009 scope revision 2; approval APR-TAG-IT2-001. This assignment fixes the remaining Security Reviewer finding without adding a new feature. The Coordinator saved and acknowledged the initial Developer checklist before edits. Do not install skills, use web search or open/update real history.
+
+| Task ID | File / criterion | Planned action | Status | Result and evidence | Blocker / next action |
+|---|---|---|---|---|---|
+| READ-FIX-01 | `bank_history.py`; `read_tagging_data` | Add a default page limit of 50, a maximum of 200, stable ID ordering and a last-ID cursor. Return a next cursor only when more rows exist. | Done | Uses `ORDER BY id LIMIT limit+1`, continues after last ID, caps at 200 and returns a cursor only when more rows exist. A single-transaction read rejects a cursor. | Recheck in independent review |
+| READ-FIX-02 | New tagging `SKILL.md` | Tell the agent to process one page at a time and request the next page only after it completes the current page | Done | Skill says finish the page before reading the next and keep totals across pages. | Recheck instructions |
+| READ-FIX-03 | `test_bank_history.py` | Create more than one page of generated transactions; verify no duplicates or omissions, correct cursor, and max-limit enforcement | Done | Generated 203-row test checks full traversal, no duplicate/missing rows, default 50, max 200, invalid limits and single-transaction cursor rejection. | Rerun independently |
+| READ-FIX-04 | `test_distribution.py` | Check the new paging instructions and bounded read contract | Done | Distribution test checks page instructions and function contract. | Rerun independently |
+| READ-FIX-05 | Verification | Run focused tests and compile; report changed files and hashes | Done | Focused tests: 57 passed, 85 subtests passed. Compile passed. No web, install, or real history. | Independent reviews required |
+
+Finding is in [Security Reviewer plan revision 2](bank-tagging-step-2-security-reviewer-plan-r2.md). Pages use stable transaction ID order, not date order, to keep the continuation cursor simple and avoid returning dates. This is a bounded read within the approved function. No additional schema, table or dependency is needed. Coordinator verified the final hashes: `bank_history.py` 196700603502dbb31646aacc8a6a38dc63a5cb767b85f62063b3880d2d16c91b; `test_bank_history.py` 03154fff6567a99efbfcf1325929d31381ffb713f9fa80d4e6813006146c1a4c; `test_distribution.py` c7355f8a289edf7d3bb6e480c5026e54af353467beaeaf5f53c78092dd11cf3e; tagging `SKILL.md` 19912a7d70e02aa8e88994570a01a0825912ca6258974362c584a41249687e61.
