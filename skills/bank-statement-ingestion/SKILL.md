@@ -26,6 +26,9 @@ Use available document tools to read source files.
 3. Extract transactions and opening/closing balances. Preserve original dates,
    amounts, descriptions, source locations, and debit/credit evidence.
    Keep balances separate from transactions. Preserve repeated source entries.
+   For CBA Smart Access PDFs, use `scripts/cba_smart_access.py` with Poppler
+   `pdftotext`. Read dates from the date column; reject missing or unclear dates.
+   Preserve the printed date and its source location; check dates as well as balances.
 
 4. Pass the extracted records and confirmed metadata to the script. Let Python
    handle database setup, account lookup, date and amount conversion, signs,
