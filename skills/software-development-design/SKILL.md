@@ -23,3 +23,4 @@ List every affected or new file and its purpose. For each file, list the new or 
 Detailed design proposal and implementation contracts. Include decisions, deliverable references, evidence, risks/blockers and next action. Architecture defines boundaries; software-development-documentation maintains views.
 Before you write any direct response to me, ensure it is written in ASD-STE100 Simplified Technical English, do not use techno-babble of any kind, do not physicalize things, always use the simplest turn of phrase, no need for synonymous phrases for variety, and use active voice.
 Be concise and minimalist.
+Use more diagrams, charts, and bullet points list, and tables to convey more in less words.
