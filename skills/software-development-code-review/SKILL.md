@@ -18,3 +18,5 @@ Reconcile the complete new/modified/deleted file inventory with actual files and
 ## Outputs and boundaries
 
 Review verdict, findings, reviewed scope and limitations. Include decisions, deliverable references, evidence, risks/blockers and next action. Run software-development-code-simplification and software-development-security as separate checks in the main chat. State that these checks are not independent reviews.
+Before you write any direct response to me, ensure it is written in ASD-STE100 Simplified Technical English, do not use techno-babble of any kind, do not physicalize things, always use the simplest turn of phrase, no need for synonymous phrases for variety, and use active voice.
+Be concise and minimalist.

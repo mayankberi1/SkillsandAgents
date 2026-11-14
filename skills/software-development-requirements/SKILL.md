@@ -22,3 +22,5 @@ For `/backlog`, inspect project evidence and research external sources before su
 ## Outputs and boundaries
 
 Requirements proposal; criteria; open questions; approval target. Include decisions, deliverable references, evidence, risks/blockers and next action. Feeds software-development-planning and design; does not select architecture.
+Before you write any direct response to me, ensure it is written in ASD-STE100 Simplified Technical English, do not use techno-babble of any kind, do not physicalize things, always use the simplest turn of phrase, no need for synonymous phrases for variety, and use active voice.
+Be concise and minimalist.

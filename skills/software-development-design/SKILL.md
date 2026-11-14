@@ -8,6 +8,7 @@ description: "Design implementable component, API and data contracts."
 ## Activation and inputs
 
 Design implementable component, API and data contracts. Inputs: Approved requirements, architecture and UI constraints. Read applicable central AGENTS.md; this capability grants no additional authorisation.
+use domain engineering, SOLID and YAGNI principals.
 
 ## Procedure
 
@@ -20,3 +21,5 @@ List every affected or new file and its purpose. For each file, list the new or 
 ## Outputs and boundaries
 
 Detailed design proposal and implementation contracts. Include decisions, deliverable references, evidence, risks/blockers and next action. Architecture defines boundaries; software-development-documentation maintains views.
+Before you write any direct response to me, ensure it is written in ASD-STE100 Simplified Technical English, do not use techno-babble of any kind, do not physicalize things, always use the simplest turn of phrase, no need for synonymous phrases for variety, and use active voice.
+Be concise and minimalist.

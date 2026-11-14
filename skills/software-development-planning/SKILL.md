@@ -7,7 +7,9 @@ description: "Plan small iterations from approved requirements and designs."
 
 ## Activation and inputs
 
-Plan small iterations from approved requirements and designs. Inputs: Approved requirements/designs and actual file state. Read applicable central AGENTS.md; this capability grants no additional authorisation.
+Plan small iterations from approved requirements and designs. 
+Inputs: Approved requirements/designs and actual file state. 
+Read applicable central AGENTS.md; this capability grants no additional authorisation.
 
 ## Procedure
 
@@ -18,3 +20,5 @@ Link feature iterations to backlog item ID and scope revision. Follow the shared
 ## Outputs and boundaries
 
 Reviewable iteration records and scoped approval proposal. Include decisions, deliverable references, evidence, risks/blockers and next action. Uses approved design outputs; implementation is separate.
+Before you write any direct response to me, ensure it is written in ASD-STE100 Simplified Technical English, do not use techno-babble of any kind, do not physicalize things, always use the simplest turn of phrase, no need for synonymous phrases for variety, and use active voice.
+Be concise and minimalist.

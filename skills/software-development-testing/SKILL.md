@@ -16,3 +16,5 @@ Derive risk-based cases from requirements without relying only on implementation
 ## Outputs and boundaries
 
 Passed/Failed/Not run/Blocked/Not verified evidence and gaps. Include decisions, deliverable references, evidence, risks/blockers and next action. This skill guides checks by the main chat; it does not make them independent. Tests may write artifacts and need tool authorisation.
+Before you write any direct response to me, ensure it is written in ASD-STE100 Simplified Technical English, do not use techno-babble of any kind, do not physicalize things, always use the simplest turn of phrase, no need for synonymous phrases for variety, and use active voice.
+Be concise and minimalist.

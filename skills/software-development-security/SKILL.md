@@ -16,3 +16,5 @@ Reconcile the complete new/modified/deleted file inventory with actual files and
 ## Outputs and boundaries
 
 Per-file assessment, findings, evidence, limits and blocking/exception decisions. Include decisions, deliverable references, evidence, risks/blockers and next action. software-development-dependencies informs dependency risk; prompt instructions are not deterministic security.
+Before you write any direct response to me, ensure it is written in ASD-STE100 Simplified Technical English, do not use techno-babble of any kind, do not physicalize things, always use the simplest turn of phrase, no need for synonymous phrases for variety, and use active voice.
+Be concise and minimalist.
