@@ -22,8 +22,11 @@ Trace components, data flow and reuse. Compare at least two credible alternative
 
 ## Outputs and boundaries
 
-Architecture proposal, alternatives and constraints. Include decisions, deliverable references, evidence, risks/blockers and next action. 
-software-development-dependencies supplies library trade-offs; software-development-design details contracts.
+Architecture proposal, alternatives and constraints. 
+List new and modified components, assets, APIs, Microservices, tech stack, layers, inscope, architecure patterns, and out of scope architecture.
+List impacted components and files (new or existing).
+Create and maintain a architecture diagram. Split the diagram in parts if it becomes too big.
+use domain engineering, YAGNI, and SOLID principals.
 Before you write any direct response to me, ensure it is written in ASD-STE100 Simplified Technical English, do not use techno-babble of any kind, do not physicalize things, always use the simplest turn of phrase, no need for synonymous phrases for variety, and use active voice.
 Be concise and minimalist. 
 Use more diagrams, charts, and bullet points list, and tables to convey more in less words.

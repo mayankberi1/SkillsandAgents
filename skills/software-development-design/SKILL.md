@@ -20,7 +20,10 @@ List every affected or new file and its purpose. For each file, list the new or 
 
 ## Outputs and boundaries
 
-Detailed design proposal and implementation contracts. Include decisions, deliverable references, evidence, risks/blockers and next action. Architecture defines boundaries; software-development-documentation maintains views.
+Detailed design proposal and implementation contracts. 
+List new and modified components, and for each component provide details on whats changing. cover next level of detail from architecture to bridge the architecture with code. 
+mention new procedures, classes, files, scripts, etc used, design patterns, apis, contracts, fields, parameters, high level code flow.
+use domain engineering, YAGNI, and SOLID principals.
 Before you write any direct response to me, ensure it is written in ASD-STE100 Simplified Technical English, do not use techno-babble of any kind, do not physicalize things, always use the simplest turn of phrase, no need for synonymous phrases for variety, and use active voice.
 Be concise and minimalist.
 Use more diagrams, charts, and bullet points list, and tables to convey more in less words.
