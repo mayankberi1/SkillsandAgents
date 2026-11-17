@@ -1,8 +1,8 @@
 # Product backlog
 
-Revision: **47 (BL-015 iteration plan revision 1 proposal)**. Date: 2026-11-14. BL-001 scope revision 9 and BL-009 scope revision 2 are Done. Approved queue revision: **9**; ranks 1–14 and the approved queue remain unchanged. Execution mode is `single`; BL-015 iteration plan revision 1 awaits approval. Requirements revision 5, architecture revision 5, and solution design revision 5 are approved as APR-DB-REQ-005, APR-DB-ARCH-005, and APR-DB-DES-005. Architecture revision 3 remains approved for deletes.
+Revision: **76 (BL-016 coding in progress)**. Date: 2026-11-17. Execution mode is `queue`; approved queue revision **15** includes BL-001, BL-009 and BL-016–BL-032, with prior ranks retained. Active item: **BL-016**, In Progress at coding. BL-001, BL-009 and BL-015 are Done. BL-006, BL-007 and BL-010 are retired. Twelve separate analysis and coordination items are retired; their useful on-demand behavior remains in the financial-history skill. See [retired item archive](iterations/retired-backlog-items-revision-10.md), [BL-010 lifecycle](iterations/bl-010-account-consolidation-lifecycle.md), [BL-006 lifecycle](iterations/bl-006-analysis-lifecycle.md), [BL-007 lifecycle](iterations/bl-007-banker-lifecycle.md), and [BL-009 lifecycle](iterations/bank-tagging-lifecycle.md). BL-015 requirements, architecture, design, coding and checks remain complete under APR-DB-REQ-005, APR-DB-ARCH-005, APR-DB-DES-005, APR-DB-IT-001 and APR-DB-CODE-001.
 
-Execution mode: `single`. **Active item: BL-015, scope revision 5, at iteration-plan approval.** Approved queue revision **9** and ranks 1–14 remain unchanged. BL-015 is not added to that queue. **BL-001 scope revision 9 is Done.** Design revision 6 and revised step 4 are approved and complete. **BL-009 scope revision 2 is Done** after approved implementation and independent review. See [format handling checklist](iterations/bank-statement-format-iteration.md), [design](iterations/bank-ingestion-solution.md), [design clarification checklist](iterations/bank-ingestion-amount-evidence-review-plan.md) and [implementation plan](iterations/bank-ingestion-iterations.md). Skills are not installed in a user harness. No real history or statement was used.
+Execution mode: `queue`. **Active item: BL-016.** Approved queue revision **15** includes BL-001, BL-009 and BL-016–BL-032, with prior ranks retained. **BL-016 is In Progress at coding; BL-017–BL-032 are Ready. BL-001, BL-009 and BL-015 are Done; BL-006, BL-007 and BL-010 are retired.** See [BL-009 lifecycle](iterations/bank-tagging-lifecycle.md). Skills are not installed in a user harness. No real history or statement was used.
 
 ## Direction and confirmed decisions
 
@@ -18,44 +18,248 @@ User now confirms: **analyse available data immediately and label gaps**, mainta
 
 User further confirms: accept **multiple files at once**; Banker runs in its **own working context**, returning only summary reports and an executive summary to the main chat; use an **adjustable 30-day forecast outlook**. Context isolation is intended behaviour to verify later, not a demonstrated runtime or privacy guarantee.
 
-Latest decisions at the discovery stage: selected output is **executive summary plus detailed report**, without a required Excel workbook. Require a **user-set safety buffer per funding account**. Split extras into separate backlog items. Add a dedicated transaction-tagging skill using privacy-minimised vendor web lookup. Consolidate across accounts/cards, including multiple cards on one credit account and internal transfers. At that stage, the user had not selected storage.
+2026-11-17 Google service skills direction: user proposes naming the existing Gmail skill `gmail`, then adding separate skills for Calendar, Drive, Tasks and Contacts. The user asks to split Gmail attachments, organization and writing into separate backlog items, then proposes service-level skills, then asks to split every service further into distinct tasks. Revision 70 replaces the earlier broad proposed entries with service-specific task items. User approved revision 70 on 2026-11-17. BL-016–BL-032 are Ready under approved queue revision 15; this does not approve their requirements or later stages.
+
+Historical discovery choices: selected output was **executive summary plus detailed report**, without a required Excel workbook. The user requested a **user-set safety buffer per funding account**, separate backlog items for extras, a transaction-tagging skill, and account/card consolidation. Later review in queue revision 10 retires the separate analysis items and keeps on-demand analysis in the financial-history skill.
 
 2026-10-25 clarification: unsuccessful/ambiguous vendor lookup must ask the user to classify the affected transactions and retain reusable classifications for future tagging. User proposes shared transactions/accounts/tagging tables used by reporting scripts. These record groups are the starting point for storage brainstorming; database engine, detailed schema, original-file retention and deployment remain unselected.
 
-**Final choices, 2026-10-26:** user answered `1A, 2A, 3A, generic initially`: one local personal SQLite dataset; retained original copies in a source folder alongside the database; all 14 capabilities separately prioritised; generic text PDF/CSV/XLSX support initially. These choices supersede the prior unselected-storage wording above and below. Vectors are not selected or required. Generic support is not a claim that every bank layout parses correctly; ambiguous/unsupported inputs remain explicit. The approved design and implementation define the schema and operations; tests verify the planned cases with generated data.
+**Final choices, 2026-10-26:** user answered `1A, 2A, 3A, generic initially`: one local personal SQLite dataset; retained original copies in a source folder alongside the database; all 14 capabilities were initially prioritised; generic text PDF/CSV/XLSX support initially. Queue revision 10 later retires nine analysis items as separate features. Vectors are not selected or required. Generic support is not a claim that every bank layout parses correctly; ambiguous/unsupported inputs remain explicit. The approved design and implementation define the schema and operations; tests verify the planned cases with generated data.
 
-Latest scope refinements below govern where older revision paragraphs conflict. Proposed packaging is Banker plus ingestion/coverage, tagging, and analysis/reporting skills with Python helpers; capability IDs do not imply one skill per item.
+Latest scope refinements below govern where older revision paragraphs conflict. Python handles statement import and database writes. The financial-history skill directs on-demand analysis from saved data. Banker remains separate harness work.
 
-These are distributed skills, not a banking service. Reuse existing PDF and spreadsheet skills for extraction and reporting. Source files rather than bank connections are the proposed input mechanism. Analysis skills share the ingestion result to avoid repeated extraction and inconsistent totals.
+These are distributed skills, not a banking service. Reuse existing PDF and spreadsheet skills for extraction and requested reports. Source files, not bank connections, are the input. The financial-history skill reads the saved records and states data limits.
 
 Across all analyses retain account context and separate currencies: duplicate comparisons use account/currency context, unusual-transaction baselines use relevant personal-account history within each currency, and recurring groups retain account context. Consolidated spending explicitly handles transfers and repayments.
 
-## Ranked proposal
+## Active backlog — queue revision 15
 
 | ID | Rank | Title | Scope revision | Status | Stage | Dependencies |
 |---|---|---|---|---|---|---|
 | BL-001 | 1 | Persistent ingestion, account/card inventory and coverage | 9 | Done | complete | None |
 | BL-009 | 2 | Transaction tagging and merchant identification skill | 2 | Done | complete | BL-001 |
-| BL-010 | 3 | Consolidated account/card analysis and transfer matching | 1 | Ready | discovery | BL-001 |
-| BL-002 | 4 | Duplicate transaction review | 3 | Ready | discovery | BL-001, BL-010 |
-| BL-003 | 5 | Unusual transaction review | 2 | Ready | discovery | BL-001 |
-| BL-004 | 6 | Recurring transaction analysis | 3 | Ready | discovery | BL-001 |
-| BL-005 | 7 | Spending and cash-flow analysis | 3 | Ready | discovery | BL-001, BL-009, BL-010 |
-| BL-008 | 8 | Cash-balance forecasting and shortfall warnings | 3 | Ready | discovery | BL-001, BL-004, BL-010 |
-| BL-006 | 9 | Personal finance analysis and detailed reporting | 3 | Ready | discovery | BL-002, BL-003, BL-004, BL-005, BL-008 |
-| BL-007 | 10 | Banker subagent and executive review | 4 | Ready | discovery | BL-001, BL-006 |
-| BL-011 | 11 | Fee and interest analysis | 1 | Ready | discovery | BL-001, BL-009, BL-010 |
-| BL-012 | 12 | Recurring price-change analysis | 1 | Ready | discovery | BL-004 |
-| BL-013 | 13 | Savings-goal tracking | 1 | Ready | discovery | BL-001, BL-010 |
-| BL-014 | 14 | Personal spending-budget comparison | 1 | Ready | discovery | BL-005 |
-| BL-015 | 15 | Expose database CRUD operations to the LLM | 5 | In Progress | planning approval | BL-001 |
+| BL-015 | 15 | Expose database CRUD operations to the LLM | 5 | Done | complete | BL-001 |
+
+### Approved queue — revision 15
+
+| ID | Rank | Title | Scope revision | Status | Stage | Dependencies |
+|---|---:|---|---:|---|---|---|
+| BL-016 | 16 | Name the existing skill Gmail | 3 | Awaiting Approval | solution design | None identified |
+| BL-017 | 17 | Retrieve Gmail attachments | 1 | Ready | requirements | None identified |
+| BL-018 | 18 | Organize Gmail messages | 1 | Ready | requirements | None identified |
+| BL-019 | 19 | Write Gmail messages | 1 | Ready | requirements | None identified |
+| BL-020 | 20 | Find and read Calendar events | 1 | Ready | requirements | None identified |
+| BL-021 | 21 | Create and change Calendar events | 1 | Ready | requirements | None identified |
+| BL-022 | 22 | Cancel events and manage invitations | 1 | Ready | requirements | None identified |
+| BL-023 | 23 | Find and inspect Drive files | 1 | Ready | requirements | None identified |
+| BL-024 | 24 | Download and export Drive files | 1 | Ready | requirements | BL-023 |
+| BL-025 | 25 | Add files to Drive | 1 | Ready | requirements | BL-023 |
+| BL-026 | 26 | Organize and share Drive files | 1 | Ready | requirements | BL-023 |
+| BL-027 | 27 | Find and read Google Tasks | 1 | Ready | requirements | None identified |
+| BL-028 | 28 | Create and update Google Tasks | 1 | Ready | requirements | BL-027 |
+| BL-029 | 29 | Complete and remove Google Tasks | 1 | Ready | requirements | BL-027 |
+| BL-030 | 30 | Find and read Google Contacts | 1 | Ready | requirements | None identified |
+| BL-031 | 31 | Add and update Google Contacts | 1 | Ready | requirements | BL-030 |
+| BL-032 | 32 | Delete Google Contacts | 1 | Ready | requirements | BL-030 |
+
+### Gmail
+
+#### BL-016 — Name the existing skill Gmail
+- Problem: `skills/google-workspace` only supports Gmail, but its name suggests broader Google service support.
+- Intended outcome: name the existing skill `gmail` and retain its current sign-in, search, read and label features.
+- Approved scope revision 3: rename the skill and update its references. Preserve existing sign-in access.
+- Evidence: direct user direction, 2026-11-17. Repository inspection found the existing skill, scripts, tests, setup notes and keyring service name use `google-workspace` or `google-workspace-gmail`.
+- Dependencies: none. Rank 16 is in approved queue revision 15.
+- Confirmed decision: user wants existing users to keep their saved Gmail sign-in after the rename. Keep the current keyring service/account entry, including the `google-workspace-gmail` service name.
+- Requirements proposal (GMR-001–GMR-006):
+  - **GMR-001:** The skill folder and frontmatter name are `gmail`.
+  - **GMR-002:** The renamed skill retains authentication setup, status and revoke, Gmail search, message retrieval, label listing, and confirmed single-message label changes.
+  - **GMR-003:** Existing saved credentials remain available through the same keyring service and account entry. Users do not need to repeat Google consent only because of the rename.
+  - **GMR-004:** The existing scope remains unchanged after the rename. The rename does not request wider Gmail access.
+  - **GMR-005:** The catalog and active user instructions use the new `gmail` skill name and folder path. They explain that the retained keyring entry still uses `google-workspace-gmail`.
+  - **GMR-006:** The generic installers continue to copy the renamed skill directory. This item does not change installer scripts or remove copies already installed in external harnesses.
+- Acceptance evidence planned: inspect the renamed skill metadata and all repository references; confirm the keyring service name and OAuth scopes stay unchanged; run `git diff --check`. No test or runtime evidence exists. Do not run tests unless the user asks.
+- Requirements approval: approved as **APR-GMAIL-REQ-001** on 2026-11-17. Approval covers GMR-001–GMR-006 only.
+- Design proposal:
+  - No architecture stage applies. The work renames a skill folder and updates its instructions; it adds no service, data store or new permission.
+  - Rename `skills/google-workspace/` to `skills/gmail/`. Move all current files with the directory.
+  - `skills/gmail/SKILL.md`: set frontmatter name and heading to `gmail` / `Gmail`; keep approved behavior and explain the retained keyring service name.
+  - `skills/gmail/scripts/gmail.py`: change the command-line description to Gmail; keep command names and behavior.
+  - `skills/gmail/references/setup.md`: state that the keyring name remains `google-workspace-gmail`; keep commands based on the installed skill directory.
+  - `skills/gmail/references/gmail-search-syntax.md`, `requirements.txt`, `scripts/gmail_api.py`, and `tests/test_auth.py`, `tests/test_checks.py`, `tests/test_gmail.py`, `tests/test_setup.py`: move with the directory; no content or function changes are planned.
+  - `skills/gmail/scripts/auth.py`: move with the directory; keep `KEYRING_SERVICE = "google-workspace-gmail"` unchanged.
+  - `README.md` and `skills/CATALOG.md`: add the `gmail` skill listing and correct the README skill count. Preserve the existing unrelated edits in these files.
+  - Do not change installer scripts. They copy each skill directory by its folder name. Existing copies in external harnesses are outside this item.
+  - Make no changes to OAuth scopes, Gmail operations or dependencies. No new script, function, class or API is required.
+- Design checks: inspect all references to the old skill name; confirm the renamed folder contains each existing tracked file; run `git diff --check` after coding. Do not run tests unless the user asks. No checks have run for this proposal.
+- Design approval: approved as **APR-GMAIL-DES-001** on 2026-11-17. Approval covers the rename design only.
+- Iteration plan: [BL-016 Gmail rename plan](iterations/gmail-skill-rename-lifecycle.md).
+- Coding approval: approved by the user on 2026-11-17 as **APR-GMAIL-CODE-001**. Approval covers the coding plan in the lifecycle record.
+- Status: In Progress; stage coding.
+- History: revision 1 was a generic Gmail capability; revision 2 added everyday Gmail work; revision 3 separates the rename from the Gmail features. Revisions 68–69 record earlier proposals. User approved backlog revision 70 on 2026-11-17 and confirmed keeping current sign-in on 2026-11-17. Requirements were approved as APR-GMAIL-REQ-001; design was approved as APR-GMAIL-DES-001. Iteration approval remains separate.
+
+#### BL-017 — Retrieve Gmail attachments
+- Problem: the Gmail skill cannot retrieve message attachments.
+- Intended outcome: let a user find and save an attachment from a selected message.
+- Scope: list and retrieve attachments. Save location, file limits, name conflicts and file safety remain open.
+- Evidence: user request, 2026-11-17. Gmail API provides an attachment retrieval method. [Gmail attachments reference](https://developers.google.com/workspace/gmail/api/reference/rest/v1/users.messages.attachments).
+- Dependencies: none identified. Rank 17 is in approved queue revision 15.
+- Open questions: Should the skill only list and save attachments? Where may it save them, and what size or file types should it allow?
+- Status: Ready; stage requirements; backlog scope approved under approved queue revision 15. Requirements not approved.
+
+#### BL-018 — Organize Gmail messages
+- Problem: the Gmail skill cannot organize messages beyond changing one label on one message.
+- Intended outcome: let a user organize messages with selected Gmail actions.
+- Scope: labels, filters, snooze, archive and bulk actions are candidates. Exact actions and confirmation rules remain open.
+- Evidence: user request, 2026-11-17. Gmail supports message listing and label changes; Google's API reference includes label changes and filter methods. [Gmail API reference](https://developers.google.com/workspace/gmail/api/reference/rest).
+- Dependencies: none identified. Rank 18 is in approved queue revision 15.
+- Open questions: Which actions should be included? Should any action affect more than one message?
+- Status: Ready; stage requirements; backlog scope approved under approved queue revision 15. Requirements not approved.
+
+#### BL-019 — Write Gmail messages
+- Problem: the Gmail skill cannot create email for a user.
+- Intended outcome: let a user prepare email in Gmail.
+- Scope: create drafts, reply, forward and send are candidates. Recipient checks and confirmation before sending remain open.
+- Evidence: user request, 2026-11-17. Gmail API supports drafts and sending. [Gmail draft guide](https://developers.google.com/workspace/gmail/api/guides/drafts) and [Gmail API scopes](https://developers.google.com/workspace/gmail/api/auth/scopes).
+- Dependencies: none identified. Rank 19 is in approved queue revision 15.
+- Open questions: Drafts only, or also send after exact confirmation? Should replies and forwards be included?
+- Status: Ready; stage requirements; backlog scope approved under approved queue revision 15. Requirements not approved.
+
+### Google Calendar
+
+#### BL-020 — Find and read Calendar events
+- Problem: the repository has no Calendar skill to answer a user's questions about events.
+- Intended outcome: find events in a date range and show their key details.
+- Scope: list and read events. Calendar selection, date range, recurring events and guest details remain open.
+- Evidence: user direction, 2026-11-17. Calendar API supports event listing and event details. [Calendar events list](https://developers.google.com/workspace/calendar/api/v3/reference/events/list).
+- Dependencies: none. Rank 20 is in approved queue revision 15.
+- Open questions: Which calendars and event details should the skill search?
+- Status: Ready; stage requirements; backlog scope approved under approved queue revision 15. Requirements not approved.
+
+#### BL-021 — Create and change Calendar events
+- Problem: a user cannot ask a repository skill to add or change a Calendar event.
+- Intended outcome: create or update an event when the user requests it.
+- Scope: event creation and updates. Time zone, recurrence, guests, reminders and sending guest notifications remain open.
+- Evidence: user direction, 2026-11-17. Calendar API provides event insert and update methods. [Calendar API reference](https://developers.google.com/workspace/calendar/api/v3/reference).
+- Dependencies: none identified. Rank 21 is in approved queue revision 15.
+- Open questions: Which event fields can the skill set, and when must it ask before notifying guests?
+- Status: Ready; stage requirements; backlog scope approved under approved queue revision 15. Requirements not approved.
+
+#### BL-022 — Cancel events and manage invitations
+- Problem: a user cannot cancel an event or respond to an invitation through a repository skill.
+- Intended outcome: let a user cancel selected events or manage event invitations.
+- Scope: cancellation and invitation responses. Guest notifications, organizer status and recurring-event cases remain open.
+- Evidence: user direction, 2026-11-17. Calendar API exposes event update and deletion methods; updates can notify guests. [Calendar update reference](https://developers.google.com/workspace/calendar/api/v3/reference/events/update) and [Calendar API reference](https://developers.google.com/workspace/calendar/api/v3/reference).
+- Dependencies: none identified. Rank 22 is in approved queue revision 15.
+- Open questions: Should the skill cancel events, accept/decline invitations, or both? Require exact confirmation before each change?
+- Status: Ready; stage requirements; backlog scope approved under approved queue revision 15. Requirements not approved.
+
+### Google Drive
+
+#### BL-023 — Find and inspect Drive files
+- Problem: the repository has no Drive skill to find a user's files.
+- Intended outcome: search Drive and show selected file details.
+- Scope: list, search and inspect file names and metadata. Search folders and shared drives remain open.
+- Evidence: user direction, 2026-11-17. Drive API supports file listing and reading metadata. [Drive API reference](https://developers.google.com/workspace/drive/api/reference/rest/v3).
+- Dependencies: none. Rank 23 is in approved queue revision 15.
+- Open questions: Should the first version see only user-selected files or search all files the user can access?
+- Status: Ready; stage requirements; backlog scope approved under approved queue revision 15. Requirements not approved.
+
+#### BL-024 — Download and export Drive files
+- Problem: a user cannot retrieve a selected Drive file through a repository skill.
+- Intended outcome: download ordinary files or export Google documents to a user-selected format.
+- Scope: download and export only. Local save path, allowed formats, file size and overwrite rules remain open.
+- Evidence: user direction, 2026-11-17. Drive API has download and export methods. [Drive API reference](https://developers.google.com/workspace/drive/api/reference/rest/v3).
+- Dependencies: BL-023. Rank 24 is in approved queue revision 15.
+- Open questions: Which file types and export formats should the skill support? Where should it save files?
+- Status: Ready; stage requirements; backlog scope approved under approved queue revision 15. Requirements not approved.
+
+#### BL-025 — Add files to Drive
+- Problem: a user cannot add a local file to Drive through a repository skill.
+- Intended outcome: upload a chosen file or create a Drive file.
+- Scope: file upload and creation only. Destination folder, duplicate names and supported file types remain open.
+- Evidence: user direction, 2026-11-17. Drive API provides file create and upload methods. [Drive file create](https://developers.google.com/workspace/drive/api/reference/rest/v3/files/create).
+- Dependencies: BL-023. Rank 25 is in approved queue revision 15.
+- Open questions: Which file types and destination rules should the first version support?
+- Status: Ready; stage requirements; backlog scope approved under approved queue revision 15. Requirements not approved.
+
+#### BL-026 — Organize and share Drive files
+- Problem: a user cannot organize or share Drive files through a repository skill.
+- Intended outcome: move or rename files and manage sharing when requested.
+- Scope: moving, renaming, trashing and changing access are candidates. Exact actions, recipients and confirmation rules remain open.
+- Evidence: user direction, 2026-11-17. Drive API supports file updates and permanent deletion; access scopes vary from selected files to broad Drive access. [Drive API reference](https://developers.google.com/workspace/drive/api/reference/rest/v3) and [Drive API scopes](https://developers.google.com/workspace/drive/api/guides/api-specific-auth).
+- Dependencies: BL-023. Rank 26 is in approved queue revision 15.
+- Open questions: Which organization and sharing actions should be included? Require confirmation before changing access or deleting a file?
+- Status: Ready; stage requirements; backlog scope approved under approved queue revision 15. Requirements not approved.
+
+### Google Tasks
+
+#### BL-027 — nd and read Google Tasks
+- Problem: the repository has no Tasks skill to show task lists and tasks.
+- Intended outcome: find and read a user's task lists and tasks.
+- Scope: list and read only. Completed tasks and task-list selection remain open.
+- Evidence: user direction, 2026-11-17. Tasks API provides task-list and task read methods. [Tasks API reference](https://developers.google.com/tasks/reference/rest/v1/tasks).
+- Dependencies: none. Rank 27 is in approved queue revision 15.
+- Open questions: Should the skill show completed tasks, task notes and due dates?
+- Status: Ready; stage requirementFis; backlog scope approved under approved queue revision 15. Requirements not approved.
+
+#### BL-028 — Create and update Google Tasks
+- Problem: a user cannot create or edit tasks through a repository skill.
+- Intended outcome: create tasks and change their title, notes, due date or position.
+- Scope: task creation and updates. Task list choice and date handling remain open.
+- Evidence: user direction, 2026-11-17. Tasks API supports insert, update, patch and move methods. [Tasks API reference](https://developers.google.com/tasks/reference/rest/v1/tasks).
+- Dependencies: BL-027. Rank 28 is in approved queue revision 15.
+- Open questions: Which task fields may the skill set, and how should it handle missing dates or task lists?
+- Status: Ready; stage requirements; backlog scope approved under approved queue revision 15. Requirements not approved.
+
+#### BL-029 — Complete and remove Google Tasks
+- Problem: a user cannot mark tasks complete or remove tasks through a repository skill.
+- Intended outcome: mark tasks complete and delete selected tasks when asked.
+- Scope: completion and deletion. Clearing all completed tasks is not included unless later approved.
+- Evidence: user direction, 2026-11-17. Tasks API supports task updates, deletion and clearing completed tasks. [Tasks API reference](https://developers.google.com/tasks/reference/rest/v1/tasks).
+- Dependencies: BL-027. Rank 29 is in approved queue revision 15.
+- Open questions: Require exact confirmation before deleting a task? Should bulk clearing stay out of scope?
+- Status: Ready; stage requirements; backlog scope approved under approved queue revision 15. Requirements not approved.
+
+### Google Contacts
+
+#### BL-030 — Find and read Google Contacts
+- Problem: the repository has no Contacts skill to find a user's contacts.
+- Intended outcome: search and read personal contacts.
+- Scope: personal contacts only. Search fields and displayed details remain open. Organization directory search stays out of scope.
+- Evidence: user direction, 2026-11-17. People API supports listing and searching contacts. [People API contacts guide](https://developers.google.com/people/v1/contacts).
+- Dependencies: none. Rank 30 is in approved queue revision 15.
+- Open questions: Which search fields and contact details should the skill show?
+- Status: Ready; stage requirements; backlog scope approved under approved queue revision 15. Requirements not approved.
+
+#### BL-031 — Add and update Google Contacts
+- Problem: a user cannot add or update a personal contact through a repository skill.
+- Intended outcome: create a contact or change selected contact details.
+- Scope: create and update personal contacts. Supported fields and duplicate handling remain open.
+- Evidence: user direction, 2026-11-17. People API supports creating and updating personal contacts. [People API contacts guide](https://developers.google.com/people/v1/contacts).
+- Dependencies: BL-030. Rank 31 is in approved queue revision 15.
+- Open questions: Which contact fields may be changed? How should the skill identify a contact before an update?
+- Status: Ready; stage requirements; backlog scope approved under approved queue revision 15. Requirements not approved.
+
+#### BL-032 — Delete Google Contacts
+- Problem: a user cannot delete a personal contact through a repository skill.
+- Intended outcome: delete a contact selected by the user.
+- Scope: delete one identified personal contact. Bulk deletion and directory contacts are excluded.
+- Evidence: user direction, 2026-11-17. People API provides a delete-contact method. [People API contacts guide](https://developers.google.com/people/v1/contacts).
+- Dependencies: BL-030. Rank 32 is in approved queue revision 15.
+- Open questions: What exact confirmation should be required before deletion?
+- Status: Ready; stage requirements; backlog scope approved under approved queue revision 15. Requirements not approved.
+
+- History: backlog revisions 68–69 recorded broad Gmail and Google service proposals. Revision 70 split them into BL-016–BL-032 in service order. The user approved backlog revision 70 on 2026-11-17, recorded as approved queue revision 15. Requirements approval remains separate.
+
+Retired IDs: BL-002, BL-003, BL-004, BL-005, BL-006, BL-007, BL-008, BL-010, BL-011, BL-012, BL-013 and BL-014. Do not reuse these IDs. See the [archive](iterations/retired-backlog-items-revision-10.md).
 
 ### BL-015 — Expose database CRUD operations to the LLM
 
 - Problem: database creation, configuration and table operations are not available through a clear set of callable Python tools; existing database use is embedded in import functions.
 - Intended outcome: add functions to create or link an existing database, update its configuration, and perform create/read/update/delete operations for each of five tables. Refactor other functions to use these operations so an LLM can call them. The user selected one public function per table for each operation; architecture proposes shared private helpers. Scope revision 2 adds `transactions.user_comment` and a safe update for existing databases.
-- Evidence: direct `/plan` request, 2026-11-10. `tools/database.py` is empty. `skills/financial-history/scripts/bank_history.py` contains direct SQLite schema and query operations across five tables.
-- Dependencies: BL-001. Rank 15 is a proposed placement after the existing ranked items. BL-015 is the active single item; approved queue revision 9 remains unchanged.
+- Evidence: direct `/plan` request, 2026-11-10. `tools/database.py` is empty. `skills/banking-financial-history/scripts/bank_history.py` contains direct SQLite schema and query operations across five tables.
+- Dependencies: BL-001. Rank 15 is a proposed placement after the existing ranked items. BL-015 was active in single mode before completion; approved queue revision 9 remains unchanged.
 - Database link rule: inspect the five expected tables. If they are missing, ask whether to create the tables or use another database. User confirmed this on 2026-11-12.
 - Settings rule: save the selected history directory in the existing financial-history settings file and preserve other settings. User approved a settings file on 2026-11-12.
 - Python interface: use plain Python functions called by the financial-history skill's Python runner. Do not add LangChain or MCP wrappers in this feature. User selected this option on 2026-11-13.
@@ -63,9 +267,9 @@ Across all analyses retain account context and separate currencies: duplicate co
 - Scope revision 3: delete dependent rows when database links require it; deleting a source statement record removes its child transaction, while deleting a transaction keeps its source record and clears its `transaction_id` link. Keep source evidence fields and files on disk. Requirements DBR-010–DBR-011 and architecture ADR-DB-010 remain approved as APR-DB-REQ-003 and APR-DB-ARCH-003.
 - Scope revision 4: one shared Read function accepts an optional free-text expression after `WHERE`, selected columns, `GROUP BY`, and summaries. Without a `WHERE` expression, it uses all rows from the selected table. The filter applies only to the selected table, with separate bound values. Initial summaries are `COUNT`, `SUM`, `AVG`, `MIN`, and `MAX`. Read requirements DBR-012 were approved as APR-DB-REQ-004. Read requirements and architecture decisions from revision 3 are superseded; delete decisions remain unchanged.
 - Scope revision 5: use one Read function per table and keep the scope revision 4 filter, values, selected columns, grouping, summaries, and safety rules. The table is fixed by each function name. Requirements DBR-013 were approved as APR-DB-REQ-005.
-- Status: In Progress at iteration-plan approval. Requirements DBR-013, architecture ADR-DB-016–ADR-DB-017, and solution design SD-DB-007–SD-DB-009 plus SD-DB-011–SD-DB-015 were approved as APR-DB-REQ-005, APR-DB-ARCH-005, and APR-DB-DES-005. Iteration plan DB-IT-001 proposes two coding steps for `bank_history.py` and `SKILL.md` and awaits approval as APR-DB-IT-001. BL-015 remains outside approved queue revision 9.
+- Status: Done. The follow-up fix starts a write transaction before Create and Update validate linked rows. A concurrent check passed; the statement-upload tests passed (12 tests, 12 subtests); Python compilation and `git diff --check` passed. Code review, security review, and simplification review found no remaining issue in this change. Ruff was not available. No test files changed and no real financial history was used. BL-015 remains outside approved queue revision 9.
 
-Ranks retain revision 6's explicit dependency-first proposal. No active work or approved ranks existed. User selected all 14 items for this final proposal, including BL-011–BL-014 as separately prioritised capabilities; extras are not prerequisites for baseline reports. Dependencies identify capabilities to deliver, not a reason to withhold available-data analysis when some transactions lack tags or evidence. BL-003 may consume BL-009 enrichment when available without requiring resolved merchant identities for every finding.
+The nine retired item IDs and their approved scope text remain in the [queue revision 10 archive](iterations/retired-backlog-items-revision-10.md). Do not reuse these IDs.
 
 ### BL-001 — Persistent ingestion, account/card inventory and coverage
 
@@ -96,135 +300,43 @@ Historical change, 3 November 2026: the user requested a header-date comparison 
 - Dependencies: none. Direct-request reference: user `/backlog`, 2026-10-24, and format/account discovery answers. Scope approval: APR-BANK-008 (2026-10-26).
 - Lifecycle and completion records: [Product Owner plan](iterations/bank-statement-discovery-product-owner-plan.md), [Coordinator plan](iterations/bank-ingestion-step-3-coordinator-plan.md), [independent test plan](iterations/bank-ingestion-step-3-tester-plan.md), [code review](iterations/bank-ingestion-step-3-code-reviewer-plan.md) and [security review](iterations/bank-ingestion-step-3-security-reviewer-plan.md). Design revision 5 is approved as APR-ING-DES-006; implementation awaits a separate approval.
 
-### BL-002 — Duplicate transaction review
+### BL-006 — Retired
 
-- Problem: repeat imports, overlapping statements and legitimately similar purchases can resemble duplicate charging.
-- Intended outcome/scope: candidate groups with reasons and source evidence; distinguish repeat imports from possible repeated charges. Account for same-value purchases, refunds/reversals and pending/posted transitions where present. Preserve original records and uncertainty; do not silently delete or declare charges erroneous.
-- Scope revision 2 extension: retain findings and user review decisions across monthly updates. New or corrected evidence may reopen a finding with an explanation; keep account/currency context and originals.
-- Scope revision 3: consume BL-010 account/card and consolidation distinctions to avoid mistaking multiple representations of one account's activity for repeated charges. BL-010 owns transfer/economic classification; this item owns repeated-charge review. Dependencies updated in current table.
-- Rationale/evidence: E2 documents duplicate-data causes and transaction-state changes. Inference: amount/date matches alone cannot prove duplicate charges.
-- Open questions: representative ambiguous examples during later requirements; output now selected in BL-006.
-- Dependencies: BL-001, BL-010. Direct-request reference: user `/backlog` and later consolidation request, 2026-10-24. Scope approval: APR-BANK-008 (2026-10-26).
-- Lifecycle records: shared discovery plans linked under BL-001. Completion evidence: none.
+- Current scope: use `banking-financial-history/SKILL.md` and the existing database Read functions for on-demand analysis and reports. Do not add a Python analysis engine or save analysis results, budgets, goals or report versions.
+- Supported questions: duplicate and unusual entries; recurring payments; spending and cash flow; fees and interest; conditional forecasts; recurring price changes; and comparisons with goals or budgets the user supplies for that request.
+- Output: give the selected executive summary and detailed report when requested. State the period, currencies, coverage gaps, evidence and assumptions. Keep uncertain or uncategorised rows visible. Create a report file only when requested, using an existing document skill.
+- Limits: do not edit transactions, save classifications or transfer links, or promise alerts. The current skill reads one table at a time and does not page Read results. Category analysis needs saved tags; if tags are unavailable, report uncategorised activity.
+- Scope revision 4 was approved as APR-BANK-REVIEW-001 on 2026-11-15. Earlier scope text is in the [queue revision 10 archive](iterations/retired-backlog-items-revision-10.md).
+- On 2026-11-15, the user approved retiring BL-006 as a separate item and keeping the current financial-history skill. No requirements proposal or skill change is needed.
+- On 2026-11-15, the user approved removing BL-006 as a dependency of BL-007 so it can use the existing financial-history skill. Queue revision 13 selects BL-007 at requirements.
+- Scope revision 4 remains in the [retired item archive](iterations/retired-backlog-items-revision-10.md). Do not reuse BL-006.
 
-### BL-003 — Unusual transaction review
-
-- Problem: unexpected charges can be hard to spot in transaction history.
-- Intended outcome/scope: explainable review candidates for unusual amounts, unfamiliar merchants, unexpected fees and changes relative to available history. State comparison period and limited-history caveats; present review flags, not confirmed fraud.
-- Scope revision 2 extension: use retained history as the baseline, distinguish new flags from reviewed findings, and disclose insufficient history. Refresh findings when corrected evidence changes the conclusion.
-- Rationale/evidence: E1 supports reviewing unknown charges. Specific anomaly signals are proposed heuristics, not validated detection performance.
-- Open questions: sensitivity and minimum history to resolve during requirements; output preference.
-- Dependencies: BL-001. Direct-request reference: user `/backlog`, 2026-10-24. Scope approval: APR-BANK-008 (2026-10-26).
-- Lifecycle records: shared discovery plans linked under BL-001. Completion evidence: none.
-
-### BL-004 — Recurring transaction analysis
-
-- Problem: subscriptions, bills and recurring income are obscured by variable names, amounts and timing.
-- Intended outcome/scope: identify likely recurring income, bills and subscriptions with observed transactions, estimated cadence, amount changes and confidence explanations. Handle variable amounts/cadences; distinguish observations from estimated future dates.
-- Scope revision 2 extension: refresh recurring groups monthly, highlight price changes and newly recurring items, and flag possible missing payments with explicit uncertainty about incomplete coverage or cancellations. Recurring-cost annual estimates are optional and must state assumptions (E1).
-- Scope revision 3 supersedes dedicated price-change ownership: own recurring detection, cadence and expected-payment signals, refreshed on new data regardless of statement frequency. BL-012 separately owns recurring price-change/annualised analysis. This avoids duplicate backlog scope.
-- Rationale/evidence: E1 recommends accounting for periodic bills and reviewing unused subscriptions. No automatic cancellation or payment action proposed.
-- Open questions: representative variable/cadence cases during requirements. Forecast need and report preference confirmed.
-- Dependencies: BL-001. Direct-request reference: user `/backlog`, 2026-10-24. Scope approval: APR-BANK-008 (2026-10-26).
-- Lifecycle records: shared discovery plans linked under BL-001. Completion evidence: none.
-
-### BL-005 — Spending and cash-flow analysis
-
-- Problem: transfers, refunds and credit-card repayments can distort spending totals across accounts.
-- Intended outcome/scope: spending by category, merchant and period, with editable categorisation and traceable totals. Separate income, transfers, credit-card repayments, refunds and spending; expose uncertain matching. Report incomplete periods and uncategorised transactions. Keep currencies separate, without exchange-rate conversion.
-- Scope revision 2 extension: update monthly and comparable historical summaries; retain category corrections. Include fee/interest totals and changes where identifiable (E5). Report unmatched transfers and coverage gaps; compare like periods or disclose differences.
-- Scope revision 3: consume BL-009 tags and BL-010 consolidation/transfer classifications for core spending/cash-flow summaries. Dedicated fee/interest analysis belongs to BL-011, budget comparison to BL-014; underlying transactions remain in complete totals. Transfers/repayments affect account cash flow without duplicating household spending. Unresolved tags or transfer candidates remain visible rather than blocking the report.
-- Rationale/evidence: E1 supports categorising spending. Cross-account double-counting controls are a proposed product requirement, not an existing demonstrated capability.
-- Open questions: category preferences during requirements. Report output selected in BL-006.
-- Dependencies: BL-001, BL-009, BL-010. Direct-request reference: user `/backlog`, 2026-10-24, personal-account/currency answer and latest tagging/consolidation decisions. Scope approval: APR-BANK-008 (2026-10-26).
-- Lifecycle records: shared discovery plans linked under BL-001. Completion evidence: none.
-
-### BL-006 — Personal finance analysis and detailed reporting
-
-- Problem: monthly top-ups need one understandable review of changes across accounts rather than disconnected analyses or repeatedly rebuilt history.
-- Intended outcome/scope revision 1: one skill orchestrates the preceding skills when statements are added, then saves a refreshed plain-language report and report history. Explain where money went, what changed and what needs review. Include covered accounts/periods, balance as-of dates, missing inputs, source evidence and material corrections; distinguish revised reports from earlier versions. Show deposit-balance and credit-card debt trends when supported. Report format remains open; an Excel companion is proposed, not confirmed.
-- Scope revision 2 supersedes the earlier orchestration boundary: a separate analysis/report skill uses accompanying Python scripts for repeatable calculations and traceable findings across BL-002–BL-005, then produces detailed reports and saved report versions. Reuse existing document skills as appropriate. Reports may cover a chosen month or other horizon regardless of input statement frequency; identify coverage limitations and qualify affected comparisons. Banker (BL-007) owns conversational coordination and executive synthesis. Proposed grouping is two skills plus Banker; backlog capabilities need not map one-to-one to skills. No script interface or storage architecture selected.
-- Scope revision 3: produce the selected detailed report with consolidated household/account/card views and drilldowns supported by evidence; Banker supplies the executive summary. Python performs repeatable calculations; reuse document skills for presentation. Excel is an optional future review/export format, not required output or the chosen storage method. Consume BL-008 forecast results and enabled BL-011–BL-014 extras without making extras report prerequisites. Tagging is now a separate skill (BL-009), superseding the two-skill grouping.
-- Scope split: BL-011 fee/interest, BL-012 recurring price changes, BL-013 savings goals and BL-014 budgets are separately selectable. Report may show statement-supplied card due dates/minimum payments and BL-008 upcoming-bill projections, never guaranteeing affordability/current funds.
-- Rationale/evidence: user explicitly requested monthly top-ups and updated ordinary-person reports. E1/E5–E7 support the proposed review menu; stored report lineage supports explainability after corrections.
-- Open questions: final detailed-report file format; individually selected extras; history location and original retention. Executive summary plus detailed report is confirmed.
-- Dependencies: BL-002, BL-003, BL-004, BL-005, BL-008. Direct-request reference: user persistence/report expansion and latest report/consolidation decisions, 2026-10-24. Scope approval: APR-BANK-008 (2026-10-26).
-- Lifecycle records: [Monthly Product Owner plan](iterations/bank-statement-monthly-discovery-product-owner-plan.md), [Coordinator plan](iterations/bank-statement-discovery-coordinator-plan.md). Completion evidence: none.
-
-For BL-001–BL-005, scope revision 2 additionally references the user monthly persistence/report expansion on 2026-10-24 and the monthly Product Owner plan above. Original request references remain intact. No prior scopes were approved.
-
-### BL-007 — Banker subagent and executive review
+### BL-007 — Retired
 
 - Problem: users need one conversational guide to gather missing inputs, invoke repeatable analyses and explain what matters across accounts.
 - Intended outcome/scope revision 1: add a distributed subagent named `banker`; it invokes ingestion/coverage and analysis/reporting skills, presents missing or uncertain date ranges, requests inputs that cover those ranges, and remembers supplied coverage. Adapt to each account's observed statement timing without requiring fixed periods or counts. Turn calculated summaries from one or more skills into a plain-language executive summary and prioritised suggested actions, with numerical claims traceable to results and source evidence.
-- Scope revision 2: user confirms immediate available-data analysis with gaps labelled, rather than waiting for completeness or asking permission to proceed. Consult/update the durable account/date-range inventory; ask for missing ranges alongside results and refresh affected findings after new data arrives. Label affected comparisons and forecasts provisional or unavailable where evidence is insufficient; never invent missing transactions/balances. Present BL-008 shortfall warnings prominently when forecast results are available. User reference: immediate-analysis/account-inventory clarification and forecast request, 2026-10-24.
+- Scope revision 2: user confirms immediate available-data analysis with gaps labelled, rather than waiting for completeness or asking permission to proceed. Consult/update the durable account/date-range inventory; ask for missing ranges alongside results and refresh affected findings after new data arrives. Label affected comparisons and forecasts provisional or unavailable where evidence is insufficient; never invent missing transactions/balances. Present conditional shortfall warnings from the financial-history skill when its evidence supports them. User reference: immediate-analysis/account-inventory clarification and forecast request, 2026-10-24.
 - Scope revision 3: Banker works in its own isolated working context. The main chat receives summary reports and the executive summary, including material warnings, data limitations and unresolved missing-range requests. Detailed transaction records, extraction outputs and processing logs remain in Banker's context or saved artifacts. Resume from durable inventory, history, corrections, findings and report records rather than previous chat context. Numeric claims remain traceable to saved results. Actual isolation/handoff must be verified later; this is not a demonstrated privacy boundary. Reference: user context-separation clarification, 2026-10-24; batch/context discovery plan linked under BL-001.
 - Scope revision 4: invoke the dedicated tagging skill where needed, surface ambiguous tags/consolidation and missing buffer settings without withholding other findings. Executive synthesis covers supplied accounts collectively with account-specific risks and evidence-supported card breakdowns. Selected summary+detailed report output supersedes workbook-related uncertainty. Reference: latest user tagging/report/consolidation decisions, 2026-10-24; tagging discovery plan under BL-001.
 - Boundaries: separate facts, uncertain interpretations and optional actions. Suggested checks may concern an unfamiliar charge, recurring price change or missing data. Sending messages, disputing charges, cancelling services and moving money remain outside scope. No autonomous financial actions or schedules proposed.
 - Rationale/evidence: direct user Banker brainstorming and variable-frequency/range-coverage clarification, 2026-10-24. Existing agent definitions and skill Python helpers establish repository conventions, not implemented financial capability.
-- Dependencies: BL-001, BL-006. Open questions: review-horizon onboarding, summary format, storage/retention. Tagging adds a third skill responsibility; immediate analysis, inventory, own context and summary+detailed output are confirmed. Status Ready; stage discovery (closed); approval APR-BANK-008.
+- On 2026-11-15, the user decided the separate Banker feature was not required and approved closing the requirements proposal. The current financial-history skill already checks periods and gaps, reports limits, and gives an after-import health check.
+- No subagent, separate context, new skill instructions, application, or code is planned. Do not reuse BL-007.
+- Scope revisions 1–4 remain in the [retired item archive](iterations/retired-backlog-items-revision-10.md).
 - Lifecycle records: [Banker Product Owner plan](iterations/banker-discovery-product-owner-plan.md), [Coordinator plan](iterations/bank-statement-discovery-coordinator-plan.md). Completion evidence: none.
-
-BL-001 scope revision 3 and BL-006 scope revision 2 additionally reference the Banker brainstorming and coverage clarification, 2026-10-24. All earlier approved scope remains absent; previous drafts are preserved rather than treated as approval.
-
-### BL-008 — Cash-balance forecasting and shortfall warnings
-
-- Problem: historic reports do not show whether payment timing could cause an upcoming shortfall in the account funding a payment.
-- Intended outcome/scope revision 1: Python-backed analysis projects cash balances per funding account over an adjustable horizon, using a dated balance and expected income, mortgage payments, bills, subscriptions, card repayments, transfers and any explicit ordinary-spending allowance. Use history-based estimates and user-confirmed commitments with labelled dates, amounts and assumptions. Show first projected negative date, lowest projected balance, contributing payments and uncertainty; positive funds elsewhere must not hide an account-specific shortfall.
-- Scope revision 2: default to a user-adjustable 30-day outlook. Show forecast start/end dates and starting balance as-of date; an older statement balance is not made current by this horizon. Reference: user horizon confirmation, 2026-10-24; batch/context discovery plan linked under BL-001.
-- Scope revision 3: require a user-set safety buffer per funding account in its currency. Report below-buffer and below-zero crossings separately. Never invent a threshold. If absent, request the buffer and mark buffer assessment unavailable while continuing negative-balance analysis. Consume BL-010 transfer/account distinctions. Reference: user's option 3C and consolidation decision, 2026-10-24; tagging discovery plan under BL-001.
-- Balance semantics: identify whether the starting value is statement closing, current/ledger or available balance and its as-of date. Request a fresher balance if needed; old closing balances are not current funds. Avoid counting pending payments already reflected in the starting balance, or show scenarios when uncertain. Reconcile overlapping recurring/mortgage/bill candidates so one obligation appears once. Card purchases affect debt; bank repayments affect cash. Internal transfers/card repayments are cash movements without being additional consolidated spending.
-- Forecast scenarios: baseline and cautious scenarios may vary income/payment timing or variable bills. Unknown same-day posting order cannot establish precise intraday safety. Carry missing-range/account warnings, limited history, unseen commitments and stale balances into the result. Immediate analysis remains the default; if no defensible starting balance exists, return the available descriptive analysis and state that a numeric balance projection is unavailable pending input. A positive projected balance means no shortfall under stated assumptions, not guaranteed safety.
-- Warning output: a prominent account-specific warning during a user-invoked review or data refresh, with drivers and suggested checks. BL-006 includes detailed forecast results; BL-007 synthesises warnings/actions. No background monitoring, scheduled notifications or automatic transfers/payment changes are included.
-- Rationale/evidence: direct user forecast/alarm request, 2026-10-24; E8 supports timed cash-flow projections, E9 supports timing-shortfall context and E10 informs balance distinctions. Proposed capability within the analysis skill, not necessarily another skill.
-- Dependencies: BL-001, BL-004, BL-010. Open inputs: actual per-account buffers and commitments during use. Required buffers and adjustable 30-day default are confirmed. Scope approval APR-BANK-008; status Ready; stage discovery (closed).
-- Lifecycle records: [Forecast Product Owner plan](iterations/balance-forecast-discovery-product-owner-plan.md), [Coordinator plan](iterations/bank-statement-discovery-coordinator-plan.md). Completion evidence: none.
-
-## New individually tracked capabilities
-
-BL-009 scope revision 2; BL-010–BL-014 scope revision 1. APR-BANK-008 approved these scopes. At that time, all items were Ready; the table above shows current status. Discovery is closed; requirements and later stages need their own approvals. Direct reference: user tagging/consolidation and split-extra decisions, 2026-10-24; BL-009 also references user fallback/mapping clarification, 2026-10-25. BL-009 lifecycle: [tagging lifecycle](iterations/bank-tagging-lifecycle.md); discovery evidence: [tagging Product Owner plan](iterations/banker-tagging-discovery-product-owner-plan.md), [storage Product Owner plan](iterations/banker-storage-discovery-product-owner-plan.md), [Coordinator plan](iterations/bank-statement-discovery-coordinator-plan.md). Ranks and dependencies are in the current table.
 
 ### BL-009 — Transaction tagging and merchant identification skill
 
-Current status: **Done** at the approved implementation scope. Requirements revision 1 is approved as APR-ING-REQ-005; architecture revision 1 as APR-ING-ARCH-003; solution design revision 3 as APR-ING-DES-004. Requirements revision 2 is approved as APR-ING-REQ-006. Current tags go on transaction rows; one `tagging_rules` table stores reusable rules; no separate tag-change history is kept. Design revision 4 uses one database transaction for the BL-001 format update, without a separate history copy. Design revision 4 is approved as APR-ING-DES-005; steps 1 and 2 are approved as APR-TAG-IT1-001 and APR-TAG-IT2-001. Step 2 passed focused tests and all independent reviews. The full ingestion run has 12 XLSX failures because `defusedxml==0.7.1` is missing; no package was installed. Ruff is unavailable. The skills are not installed in a user harness and no real history was used. See [requirements](iterations/bank-tagging-requirements.md), [architecture](iterations/bank-tagging-architecture.md), [solution design revision 4](iterations/bank-tagging-solution.md), [implementation steps revision 4](iterations/bank-tagging-iterations.md), [Coordinator checklist](iterations/bank-tagging-step-2-coordinator-plan.md) and [lifecycle](iterations/bank-tagging-lifecycle.md).
+- Current status: **Done.** User approved removing the database version marker because new installs create a fresh database. See the [BL-009 lifecycle](iterations/bank-tagging-lifecycle.md).
+- The implementation uses `skills/banking-financial-history/scripts/bank_history.py`. New histories include the tagging schema. Setup asks before it adds missing tables or fields to a linked history.
+- Focused tests pass: 25 tests and 12 subtests. Compilation and diff checks pass. Main-chat code, security and simplification reviews pass. These reviews are not independent. Ruff is not installed.
+- No saved history was opened or changed. The skill was not installed. No further BL-009 action is active.
 
-- Problem: transaction descriptions can obscure vendors and spending types.
-- Outcome/scope: a separate skill assigns reviewable merchant identities, categories and user tags, reusing confirmed mappings before web lookup. Locally derive the smallest safe business-name query; broad business context only if needed. Never blindly transmit full descriptions, amounts, transaction dates, account/card identifiers, personal names or reference numbers. If a safe business-only query cannot be formed, leave unresolved or ask the user. Prefer the merchant's public site and record source URL, lookup date, rationale and uncertainty. A business identity does not prove the specific goods/services purchased. User corrections persist and take precedence over inference, with history. Treat web content as evidence, not instructions. No enrichment API selected.
-- Scope revision 2: if lookup fails or remains ambiguous, ask the user to classify the affected transactions, while other analysis continues. Save the answer and its provenance; distinguish this-transaction-only corrections from reusable future-matching rules. Offer and record the chosen matching scope rather than silently applying one purchase's category to every transaction from that vendor. Transaction-specific corrections override reusable suggestions. Unanswered items stay visibly unresolved; confirmed reusable rules are checked before future web lookup. All scripts use the same saved classifications/history.
-- Evidence/rationale: direct request; E14 shows merchant/category enrichment as distinct evidence with confidence; E15 informs minimisation. Merchant-only queries reduce disclosure but do not guarantee anonymity.
-- Proposed defaults requiring approval: common and user-defined categories; save only the vendor when the purchase is unknown; suggest one business only when a public source clearly supports it. Do not require resolved tags for all transactions before analysis.
+### BL-010 — Retired
 
-### BL-010 — Consolidated account/card analysis and transfer matching
-
-- Problem: several accounts/cards and two sides of a transfer can inflate spending, balances or liabilities.
-- Outcome/scope: consolidate supplied accounts within each currency, retaining account views. Several cards can be instruments on one credit account; count debt/balance/coverage once and offer per-card breakdown only when evidence supports it. Match transfers and card repayments using traceable candidate links; retain unmatched or ambiguous cases and do not match solely on equal amounts. Distinguish refunds/reversals from income and link to spending where identifiable. No silent merging or deletion of original transactions.
-- Ownership: consolidated economic classification here; duplicate-charge review in BL-002; spending in BL-005; future cash movement in BL-008. Transfers and card repayments affect account cash flow but not household spending twice.
-- Evidence/rationale: direct user consolidation request; E13 illustrates linked additional cards, E2 informs ambiguous representations.
-- Open questions: account ownership/linkage and cross-account examples during requirements; partial coverage can leave one transfer side unmatched.
-
-### BL-011 — Fee and interest analysis
-
-- Problem/outcome: separately explain identifiable bank/card fees, interest charged/earned and changes, with source evidence and uncertain classifications. No inferred effective rates without adequate balances/terms. Underlying rows remain in core financial totals; this item owns the dedicated analysis.
-- Evidence/rationale: user asks extras split; E5/E7 support review of interest/fees.
-- Open questions: which fee/interest groupings to emphasise; optional feature selection.
-
-### BL-012 — Recurring price-change analysis
-
-- Problem/outcome: compare like recurring payments and explain changed amounts, with annualised scenarios only when assumptions are explicit. Variable usage or changed frequency is not automatically a price rise. BL-004 owns recurrence detection; this item owns comparative price-change interpretation.
-- Evidence/rationale: user asks extras split; E1 supports recurring-cost review.
-- Open questions: sufficient evidence for a like-for-like price comparison; optional feature selection.
-
-### BL-013 — Savings-goal tracking
-
-- Problem/outcome: compare user-entered targets/dates with selected account balances, distinguishing deposits/transfers, interest and balance growth. Moving money between owned accounts does not create external income or household savings. No invented targets.
-- Evidence/rationale: user asks extras split; E6 supports savings goals/progress.
-- Open questions: target, selected accounts and dates provided during use; optional feature selection.
-
-### BL-014 — Personal spending-budget comparison
-
-- Problem/outcome: compare user-set category/period budgets with classified spending, showing uncategorised activity and incomplete coverage. Do not invent personal budgets. Keep budgets distinct from mortgage/bill commitments and account safety buffers.
-- Evidence/rationale: separately tracked option requested by user; product inference extending E1 spending categories, not a demonstrated accuracy claim.
-- Open questions: category/period budget inputs and optional feature selection.
+- On 2026-11-15, the user decided the feature had no separate value because the LLM can already answer financial questions from the saved SQLite data. The user approved retiring BL-010 and removing it as a BL-006 dependency.
+- Keep the existing account, currency, transfer and card-payment guidance in `banking-financial-history/SKILL.md`. Do not add dedicated code, schema, or saved transfer links for this item.
+- Scope revisions 1 and 2 remain in the [retired item archive](iterations/retired-backlog-items-revision-10.md). Do not reuse BL-010.
 
 ## Storage and workbook distinction
 
@@ -311,7 +423,7 @@ DISC-BANK-008 researched E16–E19 on 2026-10-25 using generic public queries. N
 
 ## Discovery closure and later-stage details
 
-No discovery blockers remain. User selected local SQLite, retained source copies, all 14 items and generic initial bank support, then explicitly approved exact revision 8 under APR-BANK-008. All 14 features are Ready and discovery is closed; requirements/design/implementation remain unapproved.
+Historical discovery record: the user selected local SQLite, retained source copies, all 14 items and generic initial bank support, then approved revision 8 under APR-BANK-008. Queue revision 14 supersedes the 14-item queue: twelve items are retired and BL-009 is Blocked pending implementation reconciliation. Requirements, design and implementation approvals remain separate.
 
 Later-stage details: exact data contracts/schema and recovery/deletion behaviour; detailed-report format and representative generic-format examples; tagging taxonomy/review thresholds and account/card/transfer evidence rules. During use, users supply actual account safety buffers, savings targets and budgets. No named-bank compatibility or extraction accuracy claim exists before validation. Vectors are not part of the selected baseline.
 
@@ -351,6 +463,7 @@ Resolved: immediate analysis/gap labels; persistent account/range inventory; bat
 - 2026-11-14 — User approved architecture ADR-DB-016–ADR-DB-017 as APR-DB-ARCH-005. BL-015 advances to solution design revision 5. No code changed.
 - 2026-11-14 — Coordinator saved solution design revision 5 with per-table Read functions over one private query helper. It carries forward the approved setup, CRUD, deletion, and import contracts and updates the skill mapping. The design awaits approval as APR-DB-DES-005. No code changed and no tests ran.
 - 2026-11-14 — User approved solution design revision 5 as APR-DB-DES-005. Coordinator saved iteration plan DB-IT-001 for two coding steps in `bank_history.py` and `SKILL.md`. The plan awaits approval as APR-DB-IT-001. No code changed and no tests ran.
+- 2026-11-14 — User approved iteration plan DB-IT-001 as APR-DB-IT-001. Coordinator prepared coding plan APR-DB-CODE-001 for the two approved source files. Coding awaits approval; no code changed and no tests ran.
 
 Discovery choice round DISC-BANK-006 r1 (2026-10-24; historical options, superseded by user answers recorded below):
 
@@ -422,3 +535,18 @@ The user replied “approved” to BL-009 requirements revision 1. Coordinator r
 The user replied “approved” to BL-009 architecture revision 1, option A. Coordinator recorded APR-ING-ARCH-003 without changing it and advanced BL-009 to solution design. Implementation remains unapproved.
 
 Solution Designer DESIGN-BANK-009 r1 first proposed two tagging tables. After the user asked why a separate tag table was needed, DESIGN-BANK-009 r2 moved current tags to transaction rows and kept one table for reusable rules. The user then asked to remove tag change history and approved that design update. DESIGN-BANK-009 r3 removes tag change history. The format 2 update still changes the completed BL-001 design. Coordinator saved [solution design revision 4](iterations/bank-tagging-solution.md). The user approved solution design revision 3 as APR-ING-DES-004. The Coordinator then found that approved requirements revision 1 says to keep tag changes. Revision 2 removes that conflict while preserving revision 1. The user approved revision 2 as APR-ING-REQ-006. Coordinator saved implementation steps revision 1. The user then directed that the history update use one database transaction and no separate copy. Coordinator saved solution design revision 4 and [implementation steps revision 2](iterations/bank-tagging-iterations.md). The user approved design revision 4 as APR-ING-DES-005 and step 1 as APR-TAG-IT1-001. The Developer completed the approved step across six files. The independent Tester passed 97 focused tests and 70 subtests and compile checks. The wider ingestion suite had 12 failures because `defusedxml` is absent; no dependency was installed. Code and security reviews passed for the current files. No real history was opened or changed. The user accepted local storage without encryption for the initial version as APR-TAG-STORE-001. Step 2 is approved as APR-TAG-IT2-001 and is in progress. It does not permit installation or use on a saved history.
+
+- 2026-11-15 — User approved coding as APR-DB-CODE-001. Coordinator implemented CRUD, setup/config, safe per-table Read functions, and import refactoring in the two approved files. `git diff --check` passed. No tests were added or run; checks await separate approval.
+
+- 2026-11-15 — User approved the testing stage. Temporary SQLite checks passed for setup choices, legacy schema migration, CRUD, Read safety and summaries, linked deletes, and imports. `pytest -q tests/bank_statement_ingestion/test_statement_upload.py` passed 12 tests and 12 subtests. `git diff --check` passed. No real financial data or test-file changes. Code review awaits approval.
+- 2026-11-15 — User approved the code-review stage. Review of `bank_history.py` and `SKILL.md` found a concurrency defect: Create and Update validate links before they start a write transaction. Concurrent calls can pass the same validation and save conflicting links. Python 3.14 documentation confirms that, with the default legacy transaction mode, SQLite does not open a transaction for SELECT; it opens one before DML. The recommended fix is to start `BEGIN IMMEDIATE` before validation in the public Create and Update paths. Review did not edit source. Await user approval for this remediation. Existing checks remain evidence for the reviewed version only.
+- 2026-11-15 — User approved the remediation and required checks. A temporary-data reproduction confirmed the defect: two concurrent Create calls both saved a transaction for one source row. `bank_history.py` now starts `BEGIN IMMEDIATE` before validation in Create and Update. A concurrent Create/Update check passed and confirmed that the account and linked transaction remain consistent. `pytest -q tests/bank_statement_ingestion/test_statement_upload.py` passed 12 tests and 12 subtests; `python3 -m compileall -q skills/banking-financial-history/scripts/bank_history.py` and `git diff --check` passed. Ruff was unavailable. Follow-up code, security, and simplification reviews found no remaining issue in the fix. No tests or real financial data changed. BL-015 is Done.
+- 2026-11-15 — User approved switching to queue mode and starting BL-010. BL-010 is the highest-ranked Ready item with completed dependencies (rank 3; BL-001 is Done). Coordinator set BL-010 scope revision 1 In Progress at requirements. Approved queue revision 9, ranks, dependencies and scope remain unchanged. Discovery scope remains approved under APR-BANK-008; requirements are not approved. See [BL-010 lifecycle](iterations/bl-010-account-consolidation-lifecycle.md).
+- 2026-11-15 — **APR-BANK-REVIEW-001:** User approved a critical backlog review after testing the financial-history skill against saved SQLite data. Queue revision 10 retired nine separate analysis features and kept on-demand analysis in the skill workflow. BL-006 became skill-only, without custom analysis code or saved report history. BL-007 remains for runtime isolation and handoff. BL-009 is Blocked because this checkout lacks the implementation named in its lifecycle record and its current tagging skill says tagging is not ready. Prior ranks stay unchanged. The [archive](iterations/retired-backlog-items-revision-10.md) and [BL-010 lifecycle](iterations/bl-010-account-consolidation-lifecycle.md) record the review. No skill or Python source changed.
+- 2026-11-15 — User said BL-010 had no separate value. The user approved retiring it and removing it as a BL-006 dependency. Queue revision 11 retained prior ranks and kept existing account and transfer guidance in the financial-history skill. See [BL-010 lifecycle](iterations/bl-010-account-consolidation-lifecycle.md). No skill or Python source changed.
+- 2026-11-15 — User approved retiring BL-006 as a separate item and keeping the current financial-history skill. Queue revision 12 retains prior ranks. See [BL-006 lifecycle](iterations/bl-006-analysis-lifecycle.md). No skill or Python source changed.
+- 2026-11-15 — User approved removing BL-006 as a dependency of BL-007 so BL-007 could use the existing financial-history skill. Queue revision 13 retained prior ranks. See [BL-007 lifecycle](iterations/bl-007-banker-lifecycle.md). No skill or Python source changed.
+- 2026-11-15 — The user suggested adding any needed Banker guidance to the existing financial-history skill instead of building a separate agent. Coordinator prepared requirements proposal BKR-REQ-001, scope revision 5: rename BL-007 to Financial-history gap review and next-step guidance, report exact gaps within requested periods, and give evidence-based next checks. The user later said BL-007 had no separate value and approved retiring it and closing BKR-REQ-001. Queue revision 14 retains prior ranks. The current financial-history skill remains unchanged. No skill or Python source changed.
+- 2026-11-15 — User approved BL-009 implementation and the design update that removes the database version number. Added tagging fields, `tagging_rules`, approved tag read/save functions, setup checks, user-approved missing-schema updates, and rule-aware account deletion to the current `financial-history` files. Added generated-data tests and updated the tagging skill, catalog, lifecycle and solution records. Focused tests passed (24 tests and 12 subtests); compile and diff checks passed. Main-chat code, security and simplification reviews passed; they were not independent. No real history was opened or changed, and the skill was not installed.
+- 2026-11-15 — Follow-up check added `tag_reason` for TAG-005, database link and integrity checks for linked-schema updates, and a rule that web pages are evidence, not instructions. Final checks passed: 25 tests, 12 subtests, compile and diff checks. Main-chat code, security and simplification reviews passed again; they were not independent. BL-009 is Done. No real history was opened or changed, and the skill was not installed.
+- 2026-11-15 — Direct `/plan` request to continue the email skill did not match an existing backlog item. Added BL-016 as Proposed outside approved queue revision 14. The current Gmail capabilities were recorded; the next capability remains to be defined. No Gmail code changed.
