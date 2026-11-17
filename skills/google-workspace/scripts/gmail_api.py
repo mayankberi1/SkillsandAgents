@@ -1,3 +1,11 @@
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.12"
+# dependencies = [
+#     "google-api-python-client==2.201.0",
+#     "google-auth==2.62.0",
+# ]
+# ///
 """Allowlisted Gmail operations and safe response normalization."""
 
 from __future__ import annotations

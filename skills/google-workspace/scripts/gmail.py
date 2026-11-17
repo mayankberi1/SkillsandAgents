@@ -1,13 +1,20 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.12"
+# dependencies = [
+#     "google-api-python-client==2.201.0",
+#     "google-auth==2.62.0",
+#     "google-auth-oauthlib==1.5.0",
+#     "keyring==25.7.0",
+# ]
+# ///
 """Command-line entry point for Google Workspace Gmail authentication and label operations."""
 
 from __future__ import annotations
-
 import argparse
 import json
 import sys
 from collections.abc import Sequence
-
 import auth
 import gmail_api
 

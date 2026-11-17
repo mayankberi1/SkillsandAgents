@@ -1,10 +1,17 @@
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.12"
+# dependencies = [
+#     "google-auth==2.62.0",
+#     "google-auth-oauthlib==1.5.0",
+#     "keyring==25.7.0",
+# ]
+# ///
 """Local-browser OAuth and fail-closed OS keyring persistence for Gmail."""
 
 from __future__ import annotations
-
 import json
 from pathlib import Path
-
 import keyring
 from google.auth.exceptions import GoogleAuthError
 from google.auth.transport.requests import Request

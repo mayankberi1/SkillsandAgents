@@ -15,26 +15,15 @@ skill does not install dependencies or configure credentials.
 
 ## Prerequisites
 
-- Python 3.13 or newer.
-- Install the skill's pinned dependencies into the Python environment used to
-  run the script:
-
-  ```sh
-  python -m pip install -r <skill-dir>/requirements.txt
-  ```
-
-- A usable operating-system keyring must be available and unlocked. The
-  `keyring` library backend selected by the OS/user environment is trusted by
-  this skill; the skill does not independently verify that backend's native
-  identity or configuration. Select and configure a backend you trust. Linux
-  headless, SSH, container, or desktop sessions without a working keyring may
-  not provide persistent storage. If backend discovery or any storage operation
-  fails, the skill fails closed; it does not fall back to files, environment
-  variables, or another credential store.
-- A Google OAuth Desktop application client JSON file, obtained and managed by
-  the user. Keep it outside the skill and repository. The setup command reads
-  the selected file and does not copy it into the skill.
-- A local browser session for Google's installed-application consent flow.
+The scripts use PEP 723 metadata for their Python version and packages. Always
+run the Gmail command with `uv run --offline` when the required packages are in
+the local uv cache. If network access is enabled and the packages are not
+cached, use `uv run`. Do not run the command with `python` or `python3`.
+Before using offline mode, prepare the cache in a session with package-network
+access by running `uv run <skill-dir>/scripts/gmail.py --help`. The uv cache
+must be readable and writable in the execution environment. If the default
+cache is not writable, set `UV_CACHE_DIR` to a writable workspace path for
+each `uv run` command.
 
 ## Set up readonly authorization
 
@@ -42,7 +31,7 @@ From the harness or terminal, replace `<skill-dir>` with the copied skill
 directory and `<client-json>` with the user's Desktop OAuth client file:
 
 ```sh
-python <skill-dir>/scripts/gmail.py auth setup --client-secrets <client-json>
+uv run --offline <skill-dir>/scripts/gmail.py auth setup --client-secrets <client-json>
 ```
 
 Setup starts a local loopback authorization flow and opens the browser. The
@@ -54,27 +43,46 @@ the command reports a safe error and does not claim credentials were saved.
 OAuth credentials and refresh tokens are stored only in the configured keyring
 backend under this skill's Gmail service/account entry. The security of that
 backend selection and configuration is part of the OS/user environment trust
-boundary. They
-are not stored in files, environment variables, the skill, or the repository.
-Status output does not include credential values. A malformed stored entry,
-expired/revoked authorization, or missing permission requires setup again.
+boundary. They are not stored in files, environment variables, the skill, or
+the repository. Status output does not include credential values. A malformed
+stored entry, expired/revoked authorization, or missing permission requires
+setup again.
+
+## Keyring access
+
+Run setup and status as the same OS user who uses the desktop keyring. On
+Ubuntu, the native keyring usually uses Secret Service through the user's
+desktop D-Bus session. A restricted sandbox may not be able to reach that
+session. If a command returns `storage_unavailable`, do not assume that no
+credentials exist and do not repeat setup yet. Run the same command in an
+approved execution context that can access the user's active keyring, or ask
+the user to run it in their desktop terminal. Do not switch keyring backends or
+store credentials in a file.
+
+After setup, run `auth status` in that same context. `authenticated` confirms
+that the script can read the saved credential. The status command does not
+print the credential value. If the user wants to inspect Ubuntu's keyring,
+they can open **Passwords and Keys** and look for the `google-workspace-gmail`
+entry. Never ask them to copy or display its secret value.
 
 ## Check authentication
 
 ```sh
-python <skill-dir>/scripts/gmail.py auth status
+uv run --offline <skill-dir>/scripts/gmail.py auth status
 ```
 
 The command emits JSON indicating `authenticated`, `not_configured`, or a
 reauthorization requirement. If reauthorization is required, rerun setup and
-complete Google's browser consent. Errors are emitted as a safe JSON error on
-stderr with a nonzero exit status; diagnostic messages should not be treated
-as a place to put or reveal secrets.
+complete Google's browser consent. If it reports `storage_unavailable`, use
+the same OS user and an execution context with access to that user's keyring;
+this error does not prove that credentials are missing. Errors are emitted as
+a safe JSON error on stderr with a nonzero exit status; do not treat diagnostic
+messages as a place to put or reveal secrets.
 
 ## Remove local credentials
 
 ```sh
-python <skill-dir>/scripts/gmail.py auth revoke
+uv run --offline <skill-dir>/scripts/gmail.py auth revoke
 ```
 
 This removes the local keyring entry only. It does **not** revoke the grant at
@@ -87,9 +95,9 @@ does not claim success.
 Use the copied skill directory, from any working directory:
 
 ```sh
-python <skill-dir>/scripts/gmail.py gmail search --query 'is:unread newer_than:7d' --limit 20
-python <skill-dir>/scripts/gmail.py gmail get --message-id <message-id>
-python <skill-dir>/scripts/gmail.py gmail labels list
+uv run --offline <skill-dir>/scripts/gmail.py gmail search --query 'is:unread newer_than:7d' --limit 20
+uv run --offline <skill-dir>/scripts/gmail.py gmail get --message-id <message-id>
+uv run --offline <skill-dir>/scripts/gmail.py gmail labels list
 ```
 
 Search accepts Gmail query syntax and returns a JSON array of summaries with
@@ -120,7 +128,7 @@ removing one label on one message. Readonly credentials cannot perform changes.
 Only after the user approves that broader permission, run:
 
 ```sh
-python <skill-dir>/scripts/gmail.py auth setup --client-secrets <client-json> --modify
+uv run --offline <skill-dir>/scripts/gmail.py auth setup --client-secrets <client-json> --modify
 ```
 
 This explicitly opens browser consent for
@@ -139,8 +147,8 @@ from the actual user for that exact message ID, label ID and action before
 executing the corresponding command:
 
 ```sh
-python <skill-dir>/scripts/gmail.py gmail labels apply --message-id <confirmed-message-id> --label-id <confirmed-label-id>
-python <skill-dir>/scripts/gmail.py gmail labels remove --message-id <confirmed-message-id> --label-id <confirmed-label-id>
+uv run --offline <skill-dir>/scripts/gmail.py gmail labels apply --message-id <confirmed-message-id> --label-id <confirmed-label-id>
+uv run --offline <skill-dir>/scripts/gmail.py gmail labels remove --message-id <confirmed-message-id> --label-id <confirmed-label-id>
 ```
 
 An OAuth grant, search query, email content, model-generated approval, earlier
