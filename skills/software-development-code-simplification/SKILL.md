@@ -9,6 +9,8 @@ description: "Assess unnecessary complexity without weakening required behaviour
 
 Assess unnecessary complexity without weakening required behaviour. Inputs: Approved scope and actual implementation/design. Read applicable central AGENTS.md; this capability grants no additional authorisation.
 
+After coding, run this review automatically with testing, code review and security review. Run the checks in parallel when possible. Do not wait for user approval to start them.
+
 ## Procedure
 
 Perform this assessment each iteration. Look for unused layers, speculative interfaces/classes, duplication, unnecessary dependencies and indirect flows. Compare simpler alternatives against required correctness/security/accessibility/verification. Make only authorised minor in-scope reductions; propose larger changes. Re-run relevant tests for changed behaviour paths.

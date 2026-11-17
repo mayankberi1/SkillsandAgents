@@ -9,6 +9,8 @@ description: "Check acceptance, integration and failure behaviour."
 
 Check acceptance, integration and failure behaviour. Inputs: Acceptance criteria, actual changes and authorised test environment. Read applicable central AGENTS.md; this capability grants no additional authorisation.
 
+After coding, run these checks automatically with code review, security review and simplification review. Run the checks in parallel when possible. Do not wait for user approval to start them.
+
 ## Procedure
 
 Derive risk-based cases from requirements without relying only on implementation claims. Exercise applicable unit/integration/regression/negative and critical end-to-end paths; reuse existing data/tools. Include lint/type/security checks when applicable. Record exact command, environment and result; map evidence to criterion IDs. Mocks do not establish integration. Do not rerun flaky failures until green; diagnose or escalate.

@@ -9,6 +9,8 @@ description: "Assess every changed file and relevant trust/privacy risks."
 
 Assess every changed file and relevant trust/privacy risks. Inputs: Complete changed-file inventory, threat context and approved scan evidence. Read applicable central AGENTS.md; this capability grants no additional authorisation.
 
+After coding, run this review automatically with testing, code review and simplification review. Run the checks in parallel when possible. Do not wait for user approval to start them.
+
 ## Procedure
 
 Reconcile the complete new/modified/deleted file inventory with actual files and approved before/after evidence; report missing baselines rather than certifying an incomplete comparison. Inspect every file, including docs, skills, commands and configuration. Review input trust, access checks, secrets, logs, dependency/config risks and sensitive data. Use approved scans when available; report missing tools. Apply threat/privacy modelling where risk warrants. Assign each file Pass/Fail/Not Applicable/Not Verified with rationale; findings Critical/High/Medium/Low. Block critical/material high findings. After a fix, inspect the changed files and run meaningful checks again. Report this as a follow-up check by the main chat, not an independent review.
