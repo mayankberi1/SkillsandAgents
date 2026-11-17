@@ -11,14 +11,14 @@ Each subdirectory follows the Agent Skills open standard: a top-level `SKILL.md`
 |---|---|---|
 | 1 | `academy-guide` | Academy onboarding and course guidance |
 | 2 | `algorithmic-art` | Algorithmic art generation |
-| 3 | `financial-history` | Import and reconcile statements; query saved financial history for spending, income, balances, recurring payments, and forecasts |
-| 4 | `bank-transaction-tagging` | Tag saved transactions with vendor names, categories and user rules |
-| 5 | `brand-guidelines` | Brand consistency checks and guidelines |
-| 6 | `canvas-design` | Canvas-based visual design |
-| 7 | `discernment-nudge` | Quality review nudges and discernment prompts |
-| 8 | `doc-coauthoring` | Collaborative document co-authoring workflows |
-| 9 | `docx` | Microsoft Word (.docx) document handling |
-| 10 | `frontend-design` | Front-end UI/UX design patterns |
+| 3 | `banking-financial-history` | Import and reconcile statements; query saved history; tag transactions with vendors, categories and user rules |
+| 4 | `brand-guidelines` | Brand consistency checks and guidelines |
+| 5 | `canvas-design` | Canvas-based visual design |
+| 6 | `discernment-nudge` | Quality review nudges and discernment prompts |
+| 7 | `doc-coauthoring` | Collaborative document co-authoring workflows |
+| 8 | `docx` | Microsoft Word (.docx) document handling |
+| 9 | `frontend-design` | Front-end UI/UX design patterns |
+| 10 | `gmail` | Gmail sign-in, search, message reading, and confirmed label changes |
 | 11 | `internal-comms` | Internal communications drafting and templates |
 | 12 | `mcp-builder` | MCP (Model Context Protocol) server builder |
 | 13 | `rss-reader` | rss aggregation and summarisation |
