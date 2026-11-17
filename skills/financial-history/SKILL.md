@@ -30,23 +30,63 @@ not conversation memory or old reports. Analysis does not require another import
   to choose: point to an existing financial-history database, or supply statements
   and choose a folder for a new history. Do not answer financial questions from
   assumed data. Explain when a hosted harness cannot access a local path.
-- For an existing database, inspect its schema read-only and confirm compatibility.
-  Do not migrate an unrelated database or treat any SQLite file as this history.
-  For a selected folder, use `<history_directory>/history.sqlite3`.
-- For a new history requested by the user, call
-  `bank_history.create_history(history)` before saving accounts or statements.
-  This creates `history.sqlite3` and its tables. Never reset an existing history
-  or silently recreate a missing/damaged database named in saved settings.
-- Save confirmed history selection and preferences in the local settings file for
-  later chats. Preserve other settings. Do not require optional report preferences
-  before importing. If persistent storage is unavailable, explain that the user
-  must supply the accessible history location again next time.
+- Use `<history_directory>/history.sqlite3` for the selected folder.
+- For an existing database, call `bank_history.link_history(history)`. If it returns
+  `needs_choice`, list its missing tables and fields. Ask whether to add them or use
+  another database. If the user agrees, call `link_history(history, create_missing=True)`.
+  If the user chooses another database, call `link_history(history, create_missing=False)`
+  and leave this database and settings unchanged.
+  If the schema is incompatible, ask the user to choose a compatible database.
+- For a new history, call `bank_history.create_history(history)`. After creation or
+  successful linking, call `bank_history.update_history_config(history)` to save
+  the selected folder. This changes only `history_directory`; preserve other settings.
+  Never reset an existing history or silently recreate a missing/damaged database.
+- Do not require optional report preferences before importing. If persistent storage
+  is unavailable, explain that the user must supply the accessible location again.
+
+## Database functions
+
+Call these plain Python functions through the existing Python runner. Do not write
+to the database with direct SQL. Use the history folder from the request or settings.
+
+| Table | Create | Read | Update | Delete |
+|---|---|---|---|---|
+| `accounts` | `create_account` | `read_account` | `update_account` | `delete_account` |
+| `files` | `create_file` | `read_file` | `update_file` | `delete_file` |
+| `statements` | `create_statement` | `read_statement` | `update_statement` | `delete_statement` |
+| `statement_records` | `create_statement_record` | `read_statement_record` | `update_statement_record` | `delete_statement_record` |
+| `transactions` | `create_transaction` | `read_transaction` | `update_transaction` | `delete_transaction` |
+
+- Create functions take a `fields` mapping and an optional `history_directory`.
+- Read functions take optional `where_clause`, separate `parameters`,
+  `selected_columns`, `group_by`, and `history_directory`. The filter is only the
+  text after `WHERE`. Use `?` placeholders and pass values separately. Do not pass
+  a table name or full SQL. An empty filter reads all rows from that function's table.
+- `selected_columns` can contain table fields or `COUNT`, `SUM`, `AVG`, `MIN`, and
+  `MAX` expressions. Use `group_by` for grouped results. Group money summaries by
+  `currency`. Read functions return all matches; they do not limit results.
+- For analysis across tables, read each needed table and match related rows by ID
+  in Python. Do not join tables in a Read filter.
+- Update or Delete only after a clear direct user request. Do not ask for a second
+  confirmation when the user names the row and change. Ask if the request is unclear.
+- Use `bank-transaction-tagging` for tag changes. Do not change tag fields through
+  `update_transaction`.
+- A transaction update saves the user's text in `user_comment`. If the request gives
+  no comment, use `Changed by user`. Do not change its linked source record.
+- Deleting a source record also deletes its linked transaction. Deleting a transaction
+  keeps its source record and clears the link. Deleting a parent removes required
+  child rows in one transaction. Never delete source files from disk.
+- Before you delete an account, call `read_tagging_data(account_id=...)`. Ask whether to
+  keep or remove each same-currency rule that applies to all accounts. Pass the user's
+  choices to `delete_account(..., shared_rule_choices=...)`. The function checks these
+  choices again before it deletes rows. Deleting an account removes its own rules.
+- Report function errors. Do not claim that an operation succeeded after an error.
 
 ## Answer questions from saved data
 
-1. Open SQLite read-only: pass the resolved database file URI with `?mode=ro`
-   and `uri=True` to Python's `sqlite3.connect`. Inspect `sqlite_master` and
-   `PRAGMA table_info` before querying; use parameter values for user filters.
+1. Use the table-specific Read functions above. Each function reads one table.
+   For a report that needs several tables, read each one and match related rows
+   by ID in Python.
 2. Check account types, currency precision, statement periods and gaps. State
    the period and balance dates. Use a requested period; otherwise use the latest
    complete shared period for combined reports and disclose stale accounts.
@@ -63,10 +103,9 @@ not conversation memory or old reports. Analysis does not require another import
 |---|---|
 | `accounts` | Account `id`, `alias`, `type`, `currency`, `precision` |
 | `transactions` | Filter `active=1`; use `status='posted'` for settled reports. Dates, description, `amount`, `account_id`, optional `card_id`, `supporting_record` |
-| `statement_records` | Join `transactions.supporting_record=id` for `source_quote` and JSON `source_location`. Balance rows: `kind='balance'`, `accepted=1`, `superseded=0`; read `balance_date`, `balance_type`, `amount_minor` |
-| `statements` | Join `statement_records.statement_id=id`; inclusive `start`, `end`, `account_id`, `file_id`, import `outcome` |
-| `files` | Join `statements.file_id=id` for `original_name` and content hash; locate the source in the selected history |
-| `cards` | Optional card metadata; use a left join so missing metadata does not drop transactions |
+| `statement_records` | Match `transactions.supporting_record` to `id` for `source_quote` and JSON `source_location`. Balance rows: `kind='balance'`, `accepted=1`, `superseded=0`; read `balance_date`, `balance_type`, `amount_minor` |
+| `statements` | Match `statement_records.statement_id` to `id`; use inclusive `start`, `end`, `account_id`, `file_id`, and import `outcome` |
+| `files` | Match `statements.file_id` to `id` for `original_name` and content hash; locate the source in the selected history |
 
 Positive amounts increase cash in transaction/savings accounts and increase debt
 in credit/loan accounts. Negative amounts do the reverse. Balance records are
